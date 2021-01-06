@@ -32,6 +32,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
                     @Param("pseudoName") String pseudoName);
 
 
+
     @Query("SELECT us FROM User us WHERE us.lastName = :lastName AND " +
             "us.firstName = :firstName AND us.middleName= :middleName  AND us.dateOfBirth = :dateOfBirth AND"  +
            " us.pseudoName = :pseudoName")

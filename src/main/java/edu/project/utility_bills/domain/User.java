@@ -22,7 +22,7 @@ public class User {
     private LocalDate dateOfBirth;
     @Column (name = "pseudo_name")
     private String pseudoName;
-    @OneToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY, mappedBy = "user" )
+    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy = "user")
     private List<Utilities> utilitiesList;
 
     public long getUserId() {

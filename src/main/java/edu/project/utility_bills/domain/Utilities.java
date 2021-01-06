@@ -3,8 +3,12 @@ package edu.project.utility_bills.domain;
 
 
 
+import edu.project.utility_bills.view.LocalDateAdapter;
+
 import javax.persistence.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
+
 
 
 @Table(name = "ub_utilities")
@@ -16,6 +20,7 @@ public class Utilities {
     @Column(name = "utility_id")
     private long utilityId;
     @Column(name = "date_of_write_utility_meter")
+    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     private LocalDate dateOfWriteUtilityMeter;
     @Column(name = "hot_water")
     private int hotWater;
@@ -29,8 +34,8 @@ public class Utilities {
     private int houseUtility;
     @Column(name = "capital_repair")
     private int capitalRepair;
-    @ManyToOne (cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @ManyToOne (fetch=FetchType.EAGER, optional=true, cascade=CascadeType.ALL)
+    @JoinColumn(name = "user_id",insertable = false, updatable = false)
     private User user;
 
     public long getUtilityId() {
@@ -53,7 +58,7 @@ public class Utilities {
         return hotWater;
     }
 
-    public void setHotWater(int hotWater) {
+    public void setHotWater(Integer hotWater) {
         this.hotWater = hotWater;
     }
 

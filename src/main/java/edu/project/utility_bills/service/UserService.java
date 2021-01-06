@@ -4,8 +4,7 @@ package edu.project.utility_bills.service;
 
 import edu.project.utility_bills.dao.UserRepository;
 
-import edu.project.utility_bills.rest.UserController;
-import edu.project.utility_bills.view.UserInsert;
+import edu.project.utility_bills.domain.User;
 
 
 import org.slf4j.Logger;
@@ -26,14 +25,14 @@ public class UserService {
     UserRepository userRepository;
 
     @Transactional
-    public void createUser(UserInsert insert) {
+    public void createUser(User user) {
         LOGGER.info("Сервис");
      userRepository.createUser(
-                insert.getLastName(),
-                insert.getFirstName(),
-                insert.getMiddleName(),
-                insert.getDateOfBirth(),
-                insert.getPseudoName());
+             user.getLastName(),
+             user.getFirstName(),
+             user.getMiddleName(),
+             user.getDateOfBirth(),
+             user.getPseudoName());
      LOGGER.info("Пользователь доваблен в базу!");
 
 
@@ -44,4 +43,3 @@ public class UserService {
 
 
 
-//"Assaulov", "Ivan", "Urevich", LocalDate.of(1994, 4,15), "Assa");

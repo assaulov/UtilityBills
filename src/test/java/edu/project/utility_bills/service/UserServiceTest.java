@@ -1,8 +1,8 @@
 package edu.project.utility_bills.service;
 
 import edu.project.utility_bills.dao.UserRepository;
+import edu.project.utility_bills.domain.User;
 import edu.project.utility_bills.rest.UserController;
-import edu.project.utility_bills.view.UserInsert;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,7 +29,7 @@ public class UserServiceTest{
 
     @Test
     public void testAddUser() {
-        UserInsert ins = new UserInsert();
+        User ins = new User();
         ins.setLastName("Maus");
         ins.setFirstName("Mikki");
         ins.setMiddleName("Disneevich");

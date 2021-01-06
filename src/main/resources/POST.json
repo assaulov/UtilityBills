@@ -1,0 +1,19 @@
+{
+  "lastName":"Maus",
+  "firstName":"Mikki",
+  "middleName":"Disneevich",
+  "dateOfBirth":"18.11.1928",
+  "pseudoName": "Mish"
+}
+
+{
+  "user":"28L",
+  "dateOfWriteUtilityMeter":"05.01.2020",
+  "coldWater":"158",
+  "hotWater":"149",
+  "electricity": "172963",
+  "gas": "108",
+  "houseUtility": "238",
+  "capitalRepair": "2039"
+}
+

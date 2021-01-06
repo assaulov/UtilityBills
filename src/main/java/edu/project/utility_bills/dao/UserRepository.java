@@ -2,9 +2,7 @@ package edu.project.utility_bills.dao;
 
 
 import edu.project.utility_bills.domain.User;
-import edu.project.utility_bills.rest.UserController;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

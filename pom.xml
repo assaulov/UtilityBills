@@ -7,7 +7,7 @@
     <groupId>edu.project</groupId>
     <artifactId>UtilityBills</artifactId>
     <version>0.1</version>
-
+    <name>Utiliti Bills</name>
     <packaging>war</packaging>
     <properties>
         <slf4j.version>1.7.28</slf4j.version>

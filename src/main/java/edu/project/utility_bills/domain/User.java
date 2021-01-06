@@ -12,6 +12,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private long userId;
+    @Column(name = "last_name")
     private String lastName;
     @Column (name = "first_name")
     private String firstName;
@@ -19,12 +20,8 @@ public class User {
     private String middleName;
     @Column (name = "date_of_birth")
     private LocalDate dateOfBirth;
-    @Column (name = "passport_seria")
-    private String passportSeria;
-    @Column (name = "passport_number")
-    private String passportNumber;
-    @Column (name = "passport_date")
-    private LocalDate passportDate;
+    @Column (name = "pseudo_name")
+    private String pseudoName;
     @OneToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY, mappedBy = "user" )
     private List<Utilities> utilitiesList;
 
@@ -68,28 +65,12 @@ public class User {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getPassportSeria() {
-        return passportSeria;
+    public String getPseudoName() {
+        return pseudoName;
     }
 
-    public void setPassportSeria(String passportSeria) {
-        this.passportSeria = passportSeria;
-    }
-
-    public String getPassportNumber() {
-        return passportNumber;
-    }
-
-    public void setPassportNumber(String passportNumber) {
-        this.passportNumber = passportNumber;
-    }
-
-    public LocalDate getPassportDate() {
-        return passportDate;
-    }
-
-    public void setPassportDate(LocalDate passportDate) {
-        this.passportDate = passportDate;
+    public void setPseudoName(String pseudoName) {
+        this.pseudoName = pseudoName;
     }
 
     public List<Utilities> getUtilitiesList() {

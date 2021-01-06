@@ -2,8 +2,8 @@ package edu.project.utility_bills.service;
 
 import edu.project.utility_bills.domain.User;
 import edu.project.utility_bills.domain.Utilities;
-import edu.project.utility_bills.rest.UserController;
-import edu.project.utility_bills.rest.UtilityController;
+import edu.project.utility_bills.controllers.UserController;
+import edu.project.utility_bills.controllers.UtilityController;
 import junit.framework.TestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;

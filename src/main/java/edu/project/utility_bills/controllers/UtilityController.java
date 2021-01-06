@@ -1,4 +1,4 @@
-package edu.project.utility_bills.rest;
+package edu.project.utility_bills.controllers;
 
 
 import edu.project.utility_bills.domain.Utilities;
@@ -21,7 +21,6 @@ public class UtilityController {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public void addUtility(Utilities utility){
         utilityService.addUtility(utility);
     }

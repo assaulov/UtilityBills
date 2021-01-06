@@ -1,4 +1,4 @@
-package edu.project.utility_bills.rest;
+package edu.project.utility_bills.controllers;
 
 
 import edu.project.utility_bills.domain.User;
@@ -31,7 +31,6 @@ public class UserController {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public void createUser (User user) {
         LOGGER.info("Контролер");
         userService.createUser(user);

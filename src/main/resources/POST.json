@@ -1,3 +1,5 @@
+//Пост в базу данных, котороя содержит данные пользователей
+
 {
   "lastName":"Maus",
   "firstName":"Mikki",
@@ -6,9 +8,10 @@
   "pseudoName": "Mish"
 }
 
+//Пост в базу данных, котороя содержит данные по счетчикам
 {
-  "user":"28L",
-  "dateOfWriteUtilityMeter":"05.01.2020",
+  "user": {"userId":""},
+  "dateOfWriteUtilityMeter":"09.01.2020",
   "coldWater":"158",
   "hotWater":"149",
   "electricity": "172963",
@@ -17,3 +20,12 @@
   "capitalRepair": "2039"
 }
 
+
+{
+
+  "coldWaterCost":"3.0",
+  "hotWaterCost":"5.2",
+  "electricityCost": "6.6",
+  "gasCost": "121.5"
+
+}

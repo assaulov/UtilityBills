@@ -1,7 +1,10 @@
 package edu.project.utility_bills.domain;
 
 
+import edu.project.utility_bills.view.LocalDateAdapter;
+
 import javax.persistence.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -19,6 +22,7 @@ public class User {
     @Column (name = "middle_name")
     private String middleName;
     @Column (name = "date_of_birth")
+    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     private LocalDate dateOfBirth;
     @Column (name = "pseudo_name")
     private String pseudoName;

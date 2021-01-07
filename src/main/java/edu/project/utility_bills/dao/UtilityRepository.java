@@ -37,10 +37,13 @@ public interface UtilityRepository extends JpaRepository<Utilities, Long> {
     List<Utilities> findUtilitiesByUser(
             @Param("userId") long userId );
 
+    @Override
+    List<Utilities> findAll();
 
-   /* @Query("SELECT ub FROM Utilities ub WHERE ub.user = :user AND ub.dateOfWriteUtilityMeter = :dateOfWriteUtilityMeter AND ub.coldWater = :coldWater AND ub.hotWater = :hotWater AND " +
+
+/* @Query("SELECT ub FROM Utilities ub WHERE ub.user = :user AND ub.dateOfWriteUtilityMeter = :dateOfWriteUtilityMeter AND ub.coldWater = :coldWater AND ub.hotWater = :hotWater AND " +
             " ub.electricity = :electricity AND ub.gas = :gas AND ub.houseUtility = :houseUtility AND ub.capitalRepair = :capitalRepair")
-    List<Utilities> findUtilities(
+    List<Utilities> findAll(
             @Param("user") User user,
             @Param("dateOfWriteUtilityMeter") LocalDate dateOfWriteUtilityMeter,
             @Param("coldWater") double coldWater,
@@ -48,6 +51,6 @@ public interface UtilityRepository extends JpaRepository<Utilities, Long> {
             @Param("electricity") double electricity,
             @Param("gas") double gas,
             @Param("houseUtility") double houseUtility,
-            @Param("capitalRepair") double capitalRepair);*/
-
+            @Param("capitalRepair") double capitalRepair);
+*/
 }

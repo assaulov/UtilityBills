@@ -15,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @Component
+@Controller
 @Path("/utility")
 public class UtilityController {
 
@@ -33,7 +34,9 @@ public class UtilityController {
     @Path("/find")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public List<UtilityResponse> findUtilities(@RequestBody UtilityRequest request) {
+    public List<UtilityResponse> findUtilities(UtilityRequest request) {
         return utilityService.findUtilities(request);
     }
+
+
 }

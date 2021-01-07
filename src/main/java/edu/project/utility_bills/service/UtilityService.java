@@ -64,6 +64,11 @@ public class UtilityService {
 
             return ur;
     }
+
+    @Transactional
+    public List<Utilities> findAll() {
+        return  utilityRepository.findAll();
+    }
 }
 
 

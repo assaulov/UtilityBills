@@ -28,7 +28,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public void createUser (User user) {
@@ -37,4 +36,6 @@ public class UserController {
 
 
     }
+
+
 }

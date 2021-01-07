@@ -11,8 +11,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
+
 @Repository
 public interface UtilityRepository extends JpaRepository<Utilities, Long> {
+
 
     @Modifying(clearAutomatically = true)
     @Transactional
@@ -21,11 +24,30 @@ public interface UtilityRepository extends JpaRepository<Utilities, Long> {
             nativeQuery = true)
   void addUtility(
           @Param("user") User user,
-                           @Param("dateOfWriteUtilityMeter") LocalDate dateOfWriteUtilityMeter,
-                           @Param("coldWater") int coldWater,
-                           @Param("hotWater") int hotWater,
-                           @Param("electricity") int electricity,
-                           @Param("gas") int gas,
-                           @Param("houseUtility") int houseUtility,
-                           @Param("capitalRepair") int capitalRepair);
+          @Param("dateOfWriteUtilityMeter") LocalDate dateOfWriteUtilityMeter,
+          @Param("coldWater") double coldWater,
+          @Param("hotWater") double hotWater,
+          @Param("electricity") double electricity,
+          @Param("gas") double gas,
+          @Param("houseUtility") double houseUtility,
+          @Param("capitalRepair") double capitalRepair);
+
+
+    @Query("SELECT us FROM User us WHERE us.userId IN (SELECT ub FROM Utilities ub WHERE  ub.user = : userId)")
+    List<Utilities> findUtilitiesByUser(
+            @Param("userId") long userId );
+
+
+   /* @Query("SELECT ub FROM Utilities ub WHERE ub.user = :user AND ub.dateOfWriteUtilityMeter = :dateOfWriteUtilityMeter AND ub.coldWater = :coldWater AND ub.hotWater = :hotWater AND " +
+            " ub.electricity = :electricity AND ub.gas = :gas AND ub.houseUtility = :houseUtility AND ub.capitalRepair = :capitalRepair")
+    List<Utilities> findUtilities(
+            @Param("user") User user,
+            @Param("dateOfWriteUtilityMeter") LocalDate dateOfWriteUtilityMeter,
+            @Param("coldWater") double coldWater,
+            @Param("hotWater") double hotWater,
+            @Param("electricity") double electricity,
+            @Param("gas") double gas,
+            @Param("houseUtility") double houseUtility,
+            @Param("capitalRepair") double capitalRepair);*/
+
 }

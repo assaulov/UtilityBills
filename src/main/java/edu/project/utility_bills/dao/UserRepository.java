@@ -3,6 +3,7 @@ package edu.project.utility_bills.dao;
 
 import edu.project.utility_bills.domain.User;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -13,8 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
-
-public interface UserRepository extends CrudRepository<User, Long> {
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
 
 
 
@@ -30,7 +31,8 @@ public interface UserRepository extends CrudRepository<User, Long> {
                     @Param("pseudoName") String pseudoName);
 
 
-
+    @Modifying(clearAutomatically = true)
+    @Transactional
     @Query("SELECT us FROM User us WHERE us.lastName = :lastName AND " +
             "us.firstName = :firstName AND us.middleName= :middleName  AND us.dateOfBirth = :dateOfBirth AND"  +
            " us.pseudoName = :pseudoName")
@@ -41,5 +43,9 @@ public interface UserRepository extends CrudRepository<User, Long> {
                            @Param("pseudoName") String pseudoName);
 
 
+    @Modifying(clearAutomatically = true)
+    @Transactional
+    @Query("SELECT us FROM User us WHERE us.userId = :userId")
+    List<User> findUserById(@Param("userId") long userId);
 
 }

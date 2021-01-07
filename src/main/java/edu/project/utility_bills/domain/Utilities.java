@@ -23,17 +23,17 @@ public class Utilities {
     @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     private LocalDate dateOfWriteUtilityMeter;
     @Column(name = "hot_water")
-    private int hotWater;
+    private double hotWater;
     @Column(name = "cold_water")
     private int coldWater;
     @Column(name = "gas")
-    private int gas;
+    private double gas;
     @Column(name = "electricity")
-    private int electricity;
+    private double electricity;
     @Column(name = "house_utility")
-    private int houseUtility;
+    private double houseUtility;
     @Column(name = "capital_repair")
-    private int capitalRepair;
+    private double capitalRepair;
     @ManyToOne (fetch=FetchType.EAGER, optional=true, cascade=CascadeType.ALL)
     @JoinColumn(name = "user_id",insertable = false, updatable = false)
     private User user;
@@ -54,11 +54,11 @@ public class Utilities {
         this.dateOfWriteUtilityMeter = dateOfWriteUtilityMeter;
     }
 
-    public int getHotWater() {
+    public double getHotWater() {
         return hotWater;
     }
 
-    public void setHotWater(Integer hotWater) {
+    public void setHotWater(double hotWater) {
         this.hotWater = hotWater;
     }
 
@@ -70,35 +70,35 @@ public class Utilities {
         this.coldWater = coldWater;
     }
 
-    public int getGas() {
+    public double getGas() {
         return gas;
     }
 
-    public void setGas(int gas) {
+    public void setGas(double gas) {
         this.gas = gas;
     }
 
-    public int getElectricity() {
+    public double getElectricity() {
         return electricity;
     }
 
-    public void setElectricity(int electricity) {
+    public void setElectricity(double electricity) {
         this.electricity = electricity;
     }
 
-    public int getHouseUtility() {
+    public double getHouseUtility() {
         return houseUtility;
     }
 
-    public void setHouseUtility(int houseUtility) {
+    public void setHouseUtility(double houseUtility) {
         this.houseUtility = houseUtility;
     }
 
-    public int getCapitalRepair() {
+    public double getCapitalRepair() {
         return capitalRepair;
     }
 
-    public void setCapitalRepair(int capitalRepair) {
+    public void setCapitalRepair(double capitalRepair) {
         this.capitalRepair = capitalRepair;
     }
 

@@ -1,6 +1,5 @@
 package edu.project.utility_bills.view;
 
-import javax.persistence.Column;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 
@@ -8,16 +7,16 @@ import java.time.LocalDate;
 
 public class UtilityRequest {
 
-    private String pseudoName;
+    private long userId;
     @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     private LocalDate dateOfWriteUtilityMeter;
 
-    public String getPseudoName() {
-        return pseudoName;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setPseudoName(String pseudoName) {
-        this.pseudoName = pseudoName;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public LocalDate getDateOfWriteUtilityMeter() {

@@ -7,13 +7,12 @@ import java.time.LocalDate;
 public class UtilityResponse {
     @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     private LocalDate dateOfWriteUtilityMeter;
-    private int hotWater;
-    private int coldWater;
-    private int gas;
-    private int electricity;
-    private int houseUtility;
-    private int capitalRepair;
-
+    private double hotWater;
+    private double coldWater;
+    private double gas;
+    private double electricity;
+    private double houseUtility;
+    private double capitalRepair;
 
     public LocalDate getDateOfWriteUtilityMeter() {
         return dateOfWriteUtilityMeter;
@@ -23,51 +22,51 @@ public class UtilityResponse {
         this.dateOfWriteUtilityMeter = dateOfWriteUtilityMeter;
     }
 
-    public int getHotWater() {
+    public double getHotWater() {
         return hotWater;
     }
 
-    public void setHotWater(int hotWater) {
+    public void setHotWater(double hotWater) {
         this.hotWater = hotWater;
     }
 
-    public int getColdWater() {
+    public double getColdWater() {
         return coldWater;
     }
 
-    public void setColdWater(int coldWater) {
+    public void setColdWater(double coldWater) {
         this.coldWater = coldWater;
     }
 
-    public int getGas() {
+    public double getGas() {
         return gas;
     }
 
-    public void setGas(int gas) {
+    public void setGas(double gas) {
         this.gas = gas;
     }
 
-    public int getElectricity() {
+    public double getElectricity() {
         return electricity;
     }
 
-    public void setElectricity(int electricity) {
+    public void setElectricity(double electricity) {
         this.electricity = electricity;
     }
 
-    public int getHouseUtility() {
+    public double getHouseUtility() {
         return houseUtility;
     }
 
-    public void setHouseUtility(int houseUtility) {
+    public void setHouseUtility(double houseUtility) {
         this.houseUtility = houseUtility;
     }
 
-    public int getCapitalRepair() {
+    public double getCapitalRepair() {
         return capitalRepair;
     }
 
-    public void setCapitalRepair(int capitalRepair) {
+    public void setCapitalRepair(double capitalRepair) {
         this.capitalRepair = capitalRepair;
     }
 }

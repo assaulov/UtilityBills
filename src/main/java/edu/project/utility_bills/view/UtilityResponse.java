@@ -1,10 +1,13 @@
 package edu.project.utility_bills.view;
 
+import edu.project.utility_bills.domain.Utilities;
+
 import javax.persistence.Column;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
+import java.util.List;
 
-public class UtilityResponse {
+public class UtilityResponse  {
     @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     private LocalDate dateOfWriteUtilityMeter;
     private double hotWater;

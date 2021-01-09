@@ -36,16 +36,13 @@
     </build>
 
 
-    <dependencies>
+
+<dependencies>
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>${gson.version}</version>
         </dependency>
 
         <dependency>
@@ -146,5 +143,8 @@
 
 
     </dependencies>
+
+
+
 
 </project>

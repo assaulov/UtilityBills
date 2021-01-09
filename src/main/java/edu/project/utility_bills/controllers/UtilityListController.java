@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDate;
@@ -19,20 +20,21 @@ import java.util.List;
 @RequestMapping(path = "/utilitiesList")
 public class UtilityListController {
 
-    @Autowired
+  /*  @Autowired
     private UtilityService utilityService;
 
     @GetMapping
     public  String findAllUtilities(Model model) {
         List<Utilities> list = utilityService.findAll();
         model.addAttribute("today", LocalDate.now().format(DateTimeFormatter.ISO_DATE));
-        model.addAttribute("universities", list);
+        model.addAttribute("utilities", list);
 
-        return "universityList";
+        return "utilitiesList";
+    }*/
+
+
+
+
+
     }
 
-    @GetMapping
-    public List<UtilityResponse> findUtilities(UtilityRequest request) {
-        return utilityService.findUtilities(request);
-    }
-}

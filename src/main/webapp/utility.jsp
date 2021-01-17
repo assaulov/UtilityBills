@@ -1,3 +1,4 @@
+
 <%--
   Created by IntelliJ IDEA.
   User: NOUT
@@ -15,8 +16,10 @@
 <body>
 <h3>List of Utilities ${today}</h3>
 
-<form action="utilitiesList" method="post">
-    <input type="text" name="user_id">
+<form action="utility.jsp" method="GET">
+    <label>
+        <input type="text" name="userId">
+    </label>
     <input type="submit" value="Отправить запрос">
 
 </form>
@@ -28,7 +31,6 @@
     <caption>Коммуналка</caption>
     <thead>
     <tr>
-
         <th>Номер</th>
         <th>Дата</th>
         <th>Холодная</th>
@@ -38,7 +40,6 @@
         <th>Общедомовые</th>
         <th>Капитальный ремонт</th>
     </tr>
-
     </thead>
     <c:forEach var="utility" items="${utilities}" varStatus="status">
         <tr>

@@ -59,7 +59,7 @@ public class UtilityListServlet extends HttpServlet {
             req.getSession().setAttribute("utilities", list);
         }         else {
             ur.setUserId(Long.parseLong(param));
-            List<UtilityResponse> list =  service.findUtilities(ur);
+            List<UtilityResponse> list =  service.findUtilitiesByUserId(ur);
             req.getSession().setAttribute("utilities", list);
 
         }

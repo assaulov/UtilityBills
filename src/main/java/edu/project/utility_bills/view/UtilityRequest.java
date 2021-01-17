@@ -26,4 +26,12 @@ public class UtilityRequest {
     public void setDateOfWriteUtilityMeter(LocalDate dateOfWriteUtilityMeter) {
         this.dateOfWriteUtilityMeter = dateOfWriteUtilityMeter;
     }
+
+    @Override
+    public String toString() {
+        return "UtilityRequest{" +
+                "userId=" + userId +
+                ", dateOfWriteUtilityMeter=" + dateOfWriteUtilityMeter +
+                '}';
+    }
 }

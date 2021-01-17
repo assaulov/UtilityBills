@@ -40,7 +40,7 @@ public class UtilityService {
 
 
 
-    public List<UtilityResponse> findUtilities(UtilityRequest request) {
+    public List<UtilityResponse> findUtilitiesByUserId(UtilityRequest request) {
        List<User> users = userRepository.findUserById(
                         request.getUserId());
        if(users.isEmpty()) {

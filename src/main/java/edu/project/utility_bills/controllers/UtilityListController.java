@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
-
+@RequestMapping("/utility")
 public class UtilityListController {
 
 
@@ -27,20 +27,32 @@ public class UtilityListController {
     private UtilityService utilityService;
 
     @GetMapping
-    public  String findAllUtilities(Model model) {
-        List<Utilities> list = utilityService.findAll();
-        model.addAttribute("today", LocalDate.now().format(DateTimeFormatter.ISO_DATE));
-
+    public  String showPage(Model model) {
 
         return "utility";
     }
 
-    @GetMapping ("/{userId}")
-    public
-    String findUtilitiesByUserId(Model model, @PathVariable("userId") String userId) {
+
+    @GetMapping("/ALL")
+    public String findAllUtilitiesOfAllUsers(Model model) {
+        List<Utilities> utilitiesList = utilityService.findAll();
+        model.addAttribute("utilities", utilitiesList);
+        model.addAttribute("today", LocalDate.now().format(DateTimeFormatter.ISO_DATE));
+        return "utility";
+    }
+
+    @RequestMapping ("/userId")
+    public String findUtilitiesByUserId(Model model, @RequestParam("userId") String userId) throws NullPointerException{
+        long ID;
         LOGGER.info(userId + " получен");
         LOGGER.info("userId parse long");
-        long ID = Long.parseLong(userId);
+        try {
+             ID = Long.parseLong(userId);
+        } catch (NumberFormatException e) {
+
+            return "404";
+        }
+
         UtilityRequest ur = new UtilityRequest();
         LOGGER.info(ur.toString());
         ur.setUserId(ID);

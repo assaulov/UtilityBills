@@ -9,20 +9,24 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Title</title>
 </head>
 <body>
 <h3>List of Utilities ${today}</h3>
 
-<form action="utility.jsp" method="GET">
+<form action="${pageContext.request.contextPath}/mvc/utility/userId" method="GET">
     <label>
         <input type="text" name="userId">
     </label>
     <input type="submit" value="Отправить запрос">
 
 </form>
+
+<button onclick="document.location='${pageContext.request.contextPath}/mvc/utility/ALL'">Показать всю комуналку, всех пользователей </button>
+
 
 
 

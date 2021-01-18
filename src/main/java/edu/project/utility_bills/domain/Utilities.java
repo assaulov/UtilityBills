@@ -20,6 +20,7 @@ public class Utilities {
     @Column(name = "utility_id")
     private long utilityId;
     @Column(name = "date_of_write_utility_meter")
+    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     private LocalDate dateOfWriteUtilityMeter;
     @Column(name = "hot_water")
     private double hotWater;

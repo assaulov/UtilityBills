@@ -1,8 +1,11 @@
 package edu.project.utility_bills.dao;
 
 
+import edu.project.utility_bills.controllers.UtilityListController;
 import edu.project.utility_bills.domain.User;
 import edu.project.utility_bills.domain.Utilities;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,6 +18,7 @@ import java.util.List;
 
 @Repository
 public interface UtilityRepository extends JpaRepository<Utilities, Long> {
+
 
 
     @Modifying(clearAutomatically = true)
@@ -34,6 +38,7 @@ public interface UtilityRepository extends JpaRepository<Utilities, Long> {
 
     @Override
     List<Utilities> findAll();
+
 
     @Query(value="SELECT ut FROM Utilities ut WHERE ut.dateOfWriteUtilityMeter = :dateOfWriteUtilityMeter")
     List<Utilities> findUtilitiesByDate(@Param("dateOfWriteUtilityMeter") LocalDate dateOfWriteUtilityMeter);

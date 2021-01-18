@@ -44,7 +44,7 @@ public class UtilityListController {
 
     @GetMapping("/ALL")
     public String findAllUtilitiesOfAllUsers(Model model) {
-        List<Utilities> utilitiesList = utilityService.findAll();
+        List<UtilityResponse> utilitiesList = utilityService.findAll();
         model.addAttribute("utilities", utilitiesList);
         model.addAttribute("today", LocalDate.now().format(DateTimeFormatter.ISO_DATE));
         return "utility";
@@ -83,14 +83,18 @@ public class UtilityListController {
 
         LocalDate localDate = LocalDate.parse(date);
 
-        LOGGER.info(localDate.toString());
+        LOGGER.info("localDate - "+localDate.toString());
 
         ur.setDateOfWriteUtilityMeter(localDate);
 
+
+        LOGGER.info("Try to request to service");
+
         List<UtilityResponse> responses = utilityService.findAllUtilitiesByDate(ur);
-
+        LOGGER.info("Utility added to responses");
         model.addAttribute("utilities", responses);
-
+        LOGGER.info("Model added attribute");
+        LOGGER.info("return utility.jsp");
         return "utility";
     }
 

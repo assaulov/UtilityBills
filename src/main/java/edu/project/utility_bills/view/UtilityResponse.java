@@ -4,13 +4,14 @@ package edu.project.utility_bills.view;
 import org.springframework.stereotype.Component;
 
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 
 
 @Component
 public class UtilityResponse  {
-
-    private LocalDate dateOfWriteUtilityMeter;
+    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
+    private String dateOfWriteUtilityMeter;
     private double hotWater;
     private double coldWater;
     private double gas;
@@ -18,11 +19,11 @@ public class UtilityResponse  {
     private double houseUtility;
     private double capitalRepair;
 
-    public LocalDate getDateOfWriteUtilityMeter() {
+    public String getDateOfWriteUtilityMeter() {
         return dateOfWriteUtilityMeter;
     }
 
-    public void setDateOfWriteUtilityMeter(LocalDate dateOfWriteUtilityMeter) {
+    public void setDateOfWriteUtilityMeter(String dateOfWriteUtilityMeter) {
         this.dateOfWriteUtilityMeter = dateOfWriteUtilityMeter;
     }
 

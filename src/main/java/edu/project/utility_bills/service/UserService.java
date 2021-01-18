@@ -3,18 +3,12 @@ package edu.project.utility_bills.service;
 
 
 import edu.project.utility_bills.dao.UserRepository;
-
 import edu.project.utility_bills.domain.User;
-
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-
 
 
 @Service
@@ -37,9 +31,6 @@ public class UserService {
 
 
     }
-
-
-
 
 }
 

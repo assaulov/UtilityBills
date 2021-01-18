@@ -1,25 +1,16 @@
 package edu.project.utility_bills.controllers;
 
 
-import edu.project.utility_bills.domain.Utilities;
 import edu.project.utility_bills.service.UtilityService;
-import edu.project.utility_bills.view.LocalDateAdapter;
 import edu.project.utility_bills.view.UtilityRequest;
 import edu.project.utility_bills.view.UtilityResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @Controller
@@ -27,7 +18,7 @@ import java.util.List;
 public class UtilityListController {
 
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UtilityListController.class);
+
 
     @Autowired
     private UtilityService utilityService;
@@ -37,7 +28,7 @@ public class UtilityListController {
 
 
     @GetMapping
-    public  String showPage(Model model) {
+    public  String showPage() {
         return "utility";
     }
 
@@ -52,26 +43,17 @@ public class UtilityListController {
 
     @RequestMapping ("/userId")
     public String findUtilitiesByUserId(Model model, @RequestParam("userId") String userId) throws NullPointerException{
-        long ID;
-        LOGGER.info(userId + " получен");
-        LOGGER.info("userId parse long");
-        try {
-             ID = Long.parseLong(userId);
-        } catch (NumberFormatException e) {
 
-            return "404";
+        try {
+            ur.setUserId(Long.parseLong(userId));
+            List<UtilityResponse> responses = utilityService.findUtilitiesByUserId(ur);
+            model.addAttribute("utilities", responses);
+            model.addAttribute("userId", Long.parseLong(userId));
+        } catch (NumberFormatException e) {
+            String userror = "Введите id пользователя!";
+            model.addAttribute("userror", userror);
         }
-        LOGGER.info(ur.toString());
-        ur.setUserId(ID);
-        LOGGER.info("ur id set");
-        LOGGER.info(ur.toString());
-        LOGGER.info("Try find utility by user id");
-        List<UtilityResponse> responses = utilityService.findUtilitiesByUserId(ur);
-        LOGGER.info("Utility added to responses");
         model.addAttribute("today", LocalDate.now().format(DateTimeFormatter.ISO_DATE));
-        model.addAttribute("utilities", responses);
-        LOGGER.info("Model add atribute");
-        LOGGER.info("return utility.jsp");
         return "utility";
 
     }
@@ -79,38 +61,42 @@ public class UtilityListController {
     @GetMapping("/findByDate")
     public String findUtilitiesByDate(Model model, @RequestParam("findByDate") String date) {
 
-        LOGGER.info(date);
 
-        LocalDate localDate = LocalDate.parse(date);
-
-        LOGGER.info("localDate - "+localDate.toString());
-
-        ur.setDateOfWriteUtilityMeter(localDate);
-
-
-        LOGGER.info("Try to request to service");
-
-        List<UtilityResponse> responses = utilityService.findAllUtilitiesByDate(ur);
-        LOGGER.info("Utility added to responses");
-        model.addAttribute("utilities", responses);
-        LOGGER.info("Model added attribute");
-        LOGGER.info("return utility.jsp");
+        try {
+            ur.setDateOfWriteUtilityMeter(LocalDate.parse(date));
+            List<UtilityResponse> responses = utilityService.findAllUtilitiesByDate(ur);
+            model.addAttribute("utilities", responses);
+            model.addAttribute("date", LocalDate.parse(date).format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+        } catch (DateTimeParseException e) {
+            String str = "Введите дату!";
+            model.addAttribute("str", str);
+        }
         return "utility";
     }
 
     @GetMapping("/findByPeriod")
     public  String findUtilitiesByPeriod(Model model,
                                          @RequestParam("dateFrom") String dateFrom,
+
                                          @RequestParam("dateTo") String dateTo) {
+         try {
+            ur.setDateFrom(LocalDate.parse(dateFrom));
+            ur.setDateTo(LocalDate.parse(dateTo));
+             List<UtilityResponse> responses = utilityService.findUtilitiesByPeriod(ur);
+             model.addAttribute("utilities", responses);
+             model.addAttribute("dateFrom", LocalDate.parse(dateFrom).format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+             model.addAttribute("dateTo", LocalDate.parse(dateTo).format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+        } catch (DateTimeParseException e) {
+             String str = "Введите Период!";
+             model.addAttribute("str", str);
+        }
 
-        ur.setDateFrom(LocalDate.parse(dateFrom));
-        ur.setDateTo(LocalDate.parse(dateTo));
-
-        List<UtilityResponse> responses = utilityService.findUtilitiesByPeriod(ur);
-        model.addAttribute("utilities", responses);
         return "utility";
 
     }
 
-}
+
+
+    }
+
 

@@ -21,8 +21,7 @@ public interface UtilityRepository extends JpaRepository<Utilities, Long> {
     @Transactional
     @Query(value="INSERT INTO ub_utilities (user_id, date_of_write_utility_meter, cold_water, hot_water, electricity, gas, house_utility, capital_repair) " +
             " VALUES (:user, :dateOfWriteUtilityMeter, :coldWater, :hotWater, :electricity, :gas, :houseUtility, :capitalRepair)",
-            nativeQuery = true)
-  void addUtility(
+            nativeQuery = true) void addUtility(
           @Param("user") User user,
           @Param("dateOfWriteUtilityMeter") LocalDate dateOfWriteUtilityMeter,
           @Param("coldWater") double coldWater,
@@ -33,13 +32,11 @@ public interface UtilityRepository extends JpaRepository<Utilities, Long> {
           @Param("capitalRepair") double capitalRepair);
 
 
-    @Query("SELECT us FROM User us WHERE us.userId IN (SELECT ub FROM Utilities ub WHERE  ub.user = : userId)")
-    List<Utilities> findUtilitiesByUser(
-            @Param("userId") long userId );
-
     @Override
     List<Utilities> findAll();
 
+    @Query(value="SELECT ut FROM Utilities ut WHERE ut.dateOfWriteUtilityMeter = :dateOfWriteUtilityMeter")
+    List<Utilities> findUtilitiesByDate(@Param("dateOfWriteUtilityMeter") LocalDate dateOfWriteUtilityMeter);
 
 /* @Query("SELECT ub FROM Utilities ub WHERE ub.user = :user AND ub.dateOfWriteUtilityMeter = :dateOfWriteUtilityMeter AND ub.coldWater = :coldWater AND ub.hotWater = :hotWater AND " +
             " ub.electricity = :electricity AND ub.gas = :gas AND ub.houseUtility = :houseUtility AND ub.capitalRepair = :capitalRepair")

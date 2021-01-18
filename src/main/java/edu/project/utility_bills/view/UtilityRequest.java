@@ -1,14 +1,15 @@
 package edu.project.utility_bills.view;
 
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDate;
 
 
-
+@Component
 public class UtilityRequest {
 
     private long userId;
-    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
+
     private LocalDate dateOfWriteUtilityMeter;
 
     public long getUserId() {

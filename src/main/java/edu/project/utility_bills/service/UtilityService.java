@@ -4,12 +4,14 @@ import edu.project.utility_bills.dao.UserRepository;
 import edu.project.utility_bills.dao.UtilityRepository;
 import edu.project.utility_bills.domain.User;
 import edu.project.utility_bills.domain.Utilities;
+import edu.project.utility_bills.view.LocalDateAdapter;
 import edu.project.utility_bills.view.UtilityRequest;
 import edu.project.utility_bills.view.UtilityResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,7 +41,7 @@ public class UtilityService {
     }
 
 
-
+    @Transactional
     public List<UtilityResponse> findUtilitiesByUserId(UtilityRequest request) {
        List<User> users = userRepository.findUserById(
                         request.getUserId());
@@ -50,6 +52,19 @@ public class UtilityService {
        List<UtilityResponse> results =utilities.stream().map(u -> getResponse(u)).collect(Collectors.toList());
         return results;
     }
+
+    @Transactional
+    public List<Utilities> findAll() {
+        return  utilityRepository.findAll();
+    }
+
+
+    @Transactional
+    public List<UtilityResponse> findAllUtilitiesByDate(UtilityRequest request) {
+        List<Utilities> utilitiesList = utilityRepository.findUtilitiesByDate(request.getDateOfWriteUtilityMeter());
+        return utilitiesList.stream().map(this::getResponse).collect(Collectors.toList());
+    }
+
 
 
     private UtilityResponse getResponse (Utilities ut) {
@@ -65,10 +80,7 @@ public class UtilityService {
             return ur;
     }
 
-    @Transactional
-    public List<Utilities> findAll() {
-        return  utilityRepository.findAll();
-    }
+
 }
 
 

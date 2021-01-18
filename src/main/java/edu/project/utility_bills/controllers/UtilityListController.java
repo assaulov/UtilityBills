@@ -98,5 +98,19 @@ public class UtilityListController {
         return "utility";
     }
 
+    @GetMapping("/findByPeriod")
+    public  String findUtilitiesByPeriod(Model model,
+                                         @RequestParam("dateFrom") String dateFrom,
+                                         @RequestParam("dateTo") String dateTo) {
+
+        ur.setDateFrom(LocalDate.parse(dateFrom));
+        ur.setDateTo(LocalDate.parse(dateTo));
+
+        List<UtilityResponse> responses = utilityService.findUtilitiesByPeriod(ur);
+        model.addAttribute("utilities", responses);
+        return "utility";
+
+    }
+
 }
 

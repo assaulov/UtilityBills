@@ -33,7 +33,14 @@
 
 </form>
 
+<form action="${pageContext.request.contextPath}/mvc/utility/findByPeriod" method="GET">
+    <label>
+        <input type="date" name="dateFrom">
+        <input type="date" name="dateTo">
+    </label>
+    <input type="submit" value="Отправить запрос">
 
+</form>
 
 <button onclick="document.location='${pageContext.request.contextPath}/mvc/utility/ALL'">Показать всю комуналку, всех пользователей </button>
 

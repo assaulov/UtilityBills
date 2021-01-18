@@ -74,6 +74,11 @@ private static final Logger LOGGER = LoggerFactory.getLogger(UtilityService.clas
         return utilitiesList.stream().map(this::getResponse).collect(Collectors.toList());
     }
 
+    @Transactional
+    public List<UtilityResponse> findUtilitiesByPeriod(UtilityRequest request) {
+        List<Utilities> utilitiesList = utilityRepository.findUtilitiesByPeriod(request.getDateFrom(), request.getDateTo());
+        return utilitiesList.stream().map(this::getResponse).collect(Collectors.toList());
+    }
 
 
     private UtilityResponse getResponse (Utilities ut) {
@@ -91,6 +96,7 @@ private static final Logger LOGGER = LoggerFactory.getLogger(UtilityService.clas
 
             return ur;
     }
+
 
 
 }

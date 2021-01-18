@@ -17,8 +17,6 @@
     <title>Title</title>
     <style>
         table {
-
-
             margin: auto; /* Выравниваем таблицу по центру окна  */
         }
         td {

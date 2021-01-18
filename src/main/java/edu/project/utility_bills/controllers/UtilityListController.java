@@ -41,7 +41,7 @@ public class UtilityListController {
         return "utility";
     }
 
-    @RequestMapping ("/userId")
+    @GetMapping ("/userId")
     public String findUtilitiesByUserId(Model model, @RequestParam("userId") String userId) throws NullPointerException{
 
         try {

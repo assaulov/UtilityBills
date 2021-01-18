@@ -17,8 +17,7 @@
 
         <spring.version>5.2.1.RELEASE</spring.version>
 
-        <jersi.version>2.29.1</jersi.version>
-        <jaxb.version>2.3.1</jaxb.version>
+
     </properties>
 
     <build>
@@ -118,36 +117,7 @@
             <version>${slf4j.version}</version>
         </dependency>
 
-
-
-        <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-servlet</artifactId>
-            <version>${jersi.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.inject</groupId>
-            <artifactId>jersey-hk2</artifactId>
-            <version>${jersi.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-json-jackson</artifactId>
-            <version>${jersi.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.ext</groupId>
-            <artifactId>jersey-spring5</artifactId>
-            <version>${jersi.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            <version>${jaxb.version}</version>
-        </dependency>
-
-
-    </dependencies>
+ </dependencies>
 
 
 

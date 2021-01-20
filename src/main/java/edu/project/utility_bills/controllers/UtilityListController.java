@@ -5,15 +5,16 @@ import edu.project.utility_bills.service.UtilityService;
 import edu.project.utility_bills.view.UtilityRequest;
 import edu.project.utility_bills.view.UtilityResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/utility")
 public class UtilityListController {
 
@@ -28,70 +29,75 @@ public class UtilityListController {
 
 
     @GetMapping
-    public  String showPage() {
-        return "utility";
+    public ModelAndView showPage() {
+        return new ModelAndView("utility");
     }
 
 
     @GetMapping("/ALL")
-    public String findAllUtilitiesOfAllUsers(Model model) {
+    public ModelAndView findAllUtilitiesOfAllUsers( ) {
         List<UtilityResponse> utilitiesList = utilityService.findAll();
-        model.addAttribute("utilities", utilitiesList);
-        model.addAttribute("today", LocalDate.now().format(DateTimeFormatter.ISO_DATE));
-        return "utility";
+        ModelAndView model = new ModelAndView();
+        model.setViewName("utility");
+        model.addObject("utilities", utilitiesList);
+        model.addObject("today", LocalDate.now().format(DateTimeFormatter.ISO_DATE));
+        return model;
     }
 
-    @GetMapping ("/userId")
-    public String findUtilitiesByUserId(Model model, @RequestParam("userId") String userId) throws NullPointerException{
-
+    @GetMapping("/{userId}")
+    public ModelAndView findUtilitiesByUserId(ModelAndView model,  @PathVariable("userId") String userId) throws NullPointerException{
+        model.setViewName("utility");
         try {
             ur.setUserId(Long.parseLong(userId));
             List<UtilityResponse> responses = utilityService.findUtilitiesByUserId(ur);
-            model.addAttribute("utilities", responses);
-            model.addAttribute("userId", Long.parseLong(userId));
+            model.addObject("utilities", responses);
+            model.addObject("userId", Long.parseLong(userId));
         } catch (NumberFormatException e) {
             String userror = "Введите id пользователя!";
-            model.addAttribute("userror", userror);
+            model.addObject("userror", userror);
         }
-        model.addAttribute("today", LocalDate.now().format(DateTimeFormatter.ISO_DATE));
-        return "utility";
+        model.addObject("today", LocalDate.now().format(DateTimeFormatter.ISO_DATE));
+        return model;
 
     }
 
     @GetMapping("/findByDate")
-    public String findUtilitiesByDate(Model model, @RequestParam("findByDate") String date) {
+    public ModelAndView findUtilitiesByDate(ModelAndView model, @RequestParam("findByDate") String date) {
 
+        model.setViewName("utility");
 
         try {
             ur.setDateOfWriteUtilityMeter(LocalDate.parse(date));
             List<UtilityResponse> responses = utilityService.findAllUtilitiesByDate(ur);
-            model.addAttribute("utilities", responses);
-            model.addAttribute("date", LocalDate.parse(date).format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+            model.addObject("utilities", responses);
+            model.addObject("date", LocalDate.parse(date).format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
         } catch (DateTimeParseException e) {
             String str = "Введите дату!";
-            model.addAttribute("str", str);
+            model.addObject("str", str);
         }
-        return "utility";
+        return model;
     }
 
     @GetMapping("/findByPeriod")
-    public  String findUtilitiesByPeriod(Model model,
+    public  ModelAndView findUtilitiesByPeriod(ModelAndView model,
                                          @RequestParam("dateFrom") String dateFrom,
 
                                          @RequestParam("dateTo") String dateTo) {
-         try {
+        model.setViewName("utility");
+
+        try {
             ur.setDateFrom(LocalDate.parse(dateFrom));
             ur.setDateTo(LocalDate.parse(dateTo));
              List<UtilityResponse> responses = utilityService.findUtilitiesByPeriod(ur);
-             model.addAttribute("utilities", responses);
-             model.addAttribute("dateFrom", LocalDate.parse(dateFrom).format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
-             model.addAttribute("dateTo", LocalDate.parse(dateTo).format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+             model.addObject("utilities", responses);
+             model.addObject("dateFrom", LocalDate.parse(dateFrom).format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+             model.addObject("dateTo", LocalDate.parse(dateTo).format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
         } catch (DateTimeParseException e) {
              String str = "Введите Период!";
-             model.addAttribute("str", str);
+             model.addObject("str", str);
         }
 
-        return "utility";
+        return model;
 
     }
 

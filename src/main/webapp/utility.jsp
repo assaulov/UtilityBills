@@ -7,20 +7,44 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      lang="ru">
 <head>
+    <meta name="viewport" ontent="width=device-width, initial-scale=1">
     <title>Title</title>
     <style>
         table {
-            margin: auto; /* Выравниваем таблицу по центру окна  */
+            font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+            font-size: 14px;
+            border-collapse: collapse;
+            text-align: center;
+            margin: auto;
+        }
+        th, td:first-child {
+            background: #AFCDE7;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        th, td {
+            border-style: solid;
+            border-width: 0 1px 1px 0;
+            border-color: white;
+            text-align: center;
         }
         td {
-            text-align: center; /* Выравниваем текст по центру ячейки */
+            background: #D8E6F3;
+
+        }
+        th:first-child, td:first-child {
+            text-align: center;
         }
     </style>
 </head>
@@ -32,7 +56,8 @@
 </span>
 </p>
 
-<form action="${pageContext.request.contextPath}/mvc/utility/userId" method="GET">
+<form action="<c:url value="/mvc/utility/"/>" method="get">
+
     <label>
         <input type="text" name="userId">
     </label>

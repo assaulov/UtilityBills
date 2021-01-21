@@ -46,6 +46,32 @@
         th:first-child, td:first-child {
             text-align: center;
         }
+
+        input[type=text] {
+            width: 10%;
+            padding: 6px 10px;
+            margin: 8px 0;
+            box-sizing: border-box ;
+            border: 3px solid #ccc;
+            -webkit-transition: 0.5s;
+            transition: 0.5s;
+            outline: none;
+        }
+        input[type=date] {
+            width: 10%;
+            padding: 6px 10px;
+            margin: 8px 0;
+            box-sizing: border-box ;
+            border: 3px solid #ccc;
+            -webkit-transition: 0.5s;
+            transition: 0.5s;
+            outline: none;
+        }
+
+
+        input[type=text]:focus {
+            border: 3px solid #555;
+        }
     </style>
 </head>
 <body>
@@ -56,18 +82,18 @@
 </span>
 </p>
 
-<form action="<c:url value="/mvc/utility/"/>" method="get">
+<form action="${pageContext.request.contextPath}/utility/findByUserId" method="get">
 
     <label>
-        <input type="text" name="userId">
+        Поиск по ID пользователя: <input type="text" name="userId">
     </label>
     <input type="submit" value="Отправить запрос">
 
 </form>
 
-<form action="${pageContext.request.contextPath}/mvc/utility/findByDate" method="GET">
+<form action="${pageContext.request.contextPath}/utility/findByDate" method="GET">
     <label>
-        <input type="date" name="findByDate">
+      Поиск показаний по дате:  <input type="date" name="findByDate">
     </label>
     <input type="submit" value="Отправить запрос">
 
@@ -79,16 +105,17 @@
 </p>
 
 
-<form action="${pageContext.request.contextPath}/mvc/utility/findByPeriod" method="GET">
+<form action="${pageContext.request.contextPath}/utility/findByPeriod" method="GET">
     <label>
-        <input type="date" name="dateFrom">
-        <input type="date" name="dateTo">
+       Начало периода: <input type="date" name="dateFrom">
+                         -
+        <input type="date" name="dateTo"> :Конец периода
     </label>
     <input type="submit" value="Отправить запрос">
 
 </form>
 
-<button onclick="document.location='${pageContext.request.contextPath}/mvc/utility/ALL'">Показать всю комуналку, всех пользователей </button>
+<button onclick="document.location='${pageContext.request.contextPath}/utility/ALL'">Показания счетчиков всех пользователей </button>
 
 
 
@@ -102,14 +129,14 @@
             <span style="font-size: large; color: #000000; font-family: Arial; ">
 
                 <c:if test="${not empty userId}">
-                     <c:out value="Коммунальные счета для пользователя с ID: ${userId}"/>
+                     <c:out value="Показания счетчиков для пользователя с ID: ${userId}"/>
                 </c:if>
                 <c:if test="${not empty date}">
-                    <c:out value="Коммунальные счета по дате: ${date}"/>
+                    <c:out value="Показания счетчиков по дате: ${date}"/>
                 </c:if>
                 <c:if test="${not empty dateFrom}">
                     <c:if test="${not empty dateTo}">
-                        <c:out value="Коммунальные счета за период: ${dateFrom} - ${dateTo}"/>
+                        <c:out value="Показания счетчиков за период: ${dateFrom} - ${dateTo}"/>
                     </c:if>
                 </c:if>
             </span>
@@ -148,7 +175,7 @@
     <c:when test="${empty utilities}">
         <p align="center">
             <span style="font-size: large; color: #0069e3; font-family: Arial; ">
-                <c:out value="Коммунальные счета c заданными параметрами не найдены!"/>
+                <c:out value="Показания счетчиков c заданными параметрами не найдены!"/>
             </span>
         </p>
     </c:when>

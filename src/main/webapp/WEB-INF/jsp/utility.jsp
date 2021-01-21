@@ -152,6 +152,7 @@
         <th>Газ</th>
         <th>Общедомовые</th>
         <th>Капитальный ремонт</th>
+        <th width="60">Delete</th>
     </tr>
     </thead>
     <c:forEach var="utility" items="${utilities}" varStatus="status" >
@@ -166,6 +167,11 @@
             <th>${utility.gas}</th>
             <th>${utility.houseUtility}</th>
             <th>${utility.capitalRepair}</th>
+            <td> <form action="/utility/delete/" name="date" method="post" >
+                <input type="hidden" name="date" value="${utility.dateOfWriteUtilityMeter}">
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            </form>
+            </td>
         </tr>
     </c:forEach>
     </tbody>

@@ -43,6 +43,9 @@ public interface UtilityRepository extends JpaRepository<Utilities, Long> {
     @Query(value = "SELECT ut FROM Utilities ut WHERE ut.dateOfWriteUtilityMeter >= :dateFrom AND ut.dateOfWriteUtilityMeter <= :dateTo")
     List<Utilities> findUtilitiesByPeriod(@Param("dateFrom") LocalDate dateFrom,
                                           @Param("dateTo") LocalDate dateTo);
-
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM Utilities ut WHERE ut.dateOfWriteUtilityMeter = :dateOfWriteUtilityMeter")
+    void deleteByDate (@Param("dateOfWriteUtilityMeter") LocalDate dateOfWriteUtilityMeter);
 }
 

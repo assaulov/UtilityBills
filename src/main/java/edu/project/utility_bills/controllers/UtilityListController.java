@@ -1,14 +1,12 @@
 package edu.project.utility_bills.controllers;
 
 
+import edu.project.utility_bills.domain.Utilities;
 import edu.project.utility_bills.service.UtilityService;
 import edu.project.utility_bills.view.UtilityRequest;
 import edu.project.utility_bills.view.UtilityResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
@@ -37,6 +35,7 @@ public class UtilityListController {
 
     @GetMapping("/ALL")
     public ModelAndView findAllUtilitiesOfAllUsers( ) {
+        System.out.println("all");
         List<UtilityResponse> utilitiesList = utilityService.findAll();
         ModelAndView model = new ModelAndView();
         model.setViewName("utility");
@@ -63,7 +62,7 @@ public class UtilityListController {
     }
 
 
-    
+
     @GetMapping("/findByDate")
     public ModelAndView findUtilitiesByDate(ModelAndView model, @RequestParam("findByDate") String date) {
 
@@ -104,8 +103,20 @@ public class UtilityListController {
 
     }
 
+    @PostMapping("/delete/")
+    public @ResponseBody ModelAndView deleteByDate(@RequestParam("date") LocalDate date) {
+
+        ur.setDateOfWriteUtilityMeter(date);
+        System.out.println(ur.toString());
+        utilityService.deleteByDate(ur);
+    return findAllUtilitiesOfAllUsers();
+    }
 
 
+    @PostMapping("/save")
+    public void saveUtility(@RequestBody Utilities utility) {
+        utilityService.addUtility(utility);
+    }
 }
 
 

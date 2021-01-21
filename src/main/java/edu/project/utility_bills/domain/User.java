@@ -1,10 +1,12 @@
 package edu.project.utility_bills.domain;
 
 
-import edu.project.utility_bills.view.LocalDateAdapter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import edu.project.utility_bills.view.LocalDateStringConverter;
+import edu.project.utility_bills.view.StringLocalDateConverter;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -22,11 +24,12 @@ public class User {
     @Column (name = "middle_name")
     private String middleName;
     @Column (name = "date_of_birth")
-    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
+    @JsonSerialize(converter = LocalDateStringConverter.class)
+    @JsonDeserialize(converter = StringLocalDateConverter.class)
     private LocalDate dateOfBirth;
     @Column (name = "pseudo_name")
     private String pseudoName;
-    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy = "user")
+    @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy = "user")
     private List<Utilities> utilitiesList;
 
     public long getUserId() {

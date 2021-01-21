@@ -6,11 +6,11 @@ import edu.project.utility_bills.domain.User;
 import edu.project.utility_bills.domain.Utilities;
 import edu.project.utility_bills.view.UtilityRequest;
 import edu.project.utility_bills.view.UtilityResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
@@ -74,6 +74,11 @@ public class UtilityService {
         return utilitiesList.stream().map(this::getResponse).collect(Collectors.toList());
     }
 
+    @Transactional
+    public @ResponseBody
+    void deleteByDate(UtilityRequest request){
+       utilityRepository.deleteByDate(request.getDateOfWriteUtilityMeter());
+    }
 
     private UtilityResponse getResponse (Utilities ut) {
 

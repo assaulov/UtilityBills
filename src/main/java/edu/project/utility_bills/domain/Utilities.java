@@ -1,12 +1,12 @@
 package edu.project.utility_bills.domain;
 
 
-
-
-import edu.project.utility_bills.view.LocalDateAdapter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import edu.project.utility_bills.view.LocalDateStringConverter;
+import edu.project.utility_bills.view.StringLocalDateConverter;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 
 
@@ -20,7 +20,8 @@ public class Utilities {
     @Column(name = "utility_id")
     private long utilityId;
     @Column(name = "date_of_write_utility_meter")
-    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
+    @JsonSerialize(converter = LocalDateStringConverter.class)
+    @JsonDeserialize(converter = StringLocalDateConverter.class)
     private LocalDate dateOfWriteUtilityMeter;
     @Column(name = "hot_water")
     private double hotWater;
@@ -34,7 +35,7 @@ public class Utilities {
     private double houseUtility;
     @Column(name = "capital_repair")
     private double capitalRepair;
-    @ManyToOne (fetch=FetchType.EAGER, optional=true, cascade=CascadeType.ALL)
+    @ManyToOne (fetch=FetchType.LAZY, optional=true, cascade=CascadeType.ALL)
     @JoinColumn(name = "user_id",insertable = false, updatable = false)
     private User user;
 

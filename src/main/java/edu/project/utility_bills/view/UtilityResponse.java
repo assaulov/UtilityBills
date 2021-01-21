@@ -1,14 +1,16 @@
 package edu.project.utility_bills.view;
 
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.stereotype.Component;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 
 @Component
 public class UtilityResponse  {
-    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
+    @JsonSerialize(converter = LocalDateStringConverter.class)
+    @JsonDeserialize(converter = StringLocalDateConverter.class)
     private String dateOfWriteUtilityMeter;
     private double hotWater;
     private double coldWater;

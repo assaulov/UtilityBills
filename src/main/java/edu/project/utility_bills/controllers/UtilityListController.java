@@ -62,6 +62,8 @@ public class UtilityListController {
 
     }
 
+
+    
     @GetMapping("/findByDate")
     public ModelAndView findUtilitiesByDate(ModelAndView model, @RequestParam("findByDate") String date) {
 

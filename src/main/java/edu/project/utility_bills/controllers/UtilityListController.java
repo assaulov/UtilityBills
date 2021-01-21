@@ -44,8 +44,8 @@ public class UtilityListController {
         return model;
     }
 
-    @GetMapping("/{userId}")
-    public ModelAndView findUtilitiesByUserId(ModelAndView model,  @PathVariable("userId") String userId) throws NullPointerException{
+    @GetMapping("/findByUserId")
+    public ModelAndView findUtilitiesByUserId(ModelAndView model,  @RequestParam("userId") String userId) throws NullPointerException{
         model.setViewName("utility");
         try {
             ur.setUserId(Long.parseLong(userId));

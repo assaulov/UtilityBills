@@ -82,7 +82,7 @@
 </span>
 </p>
 
-<form action="${pageContext.request.contextPath}/mvc/utility/findByUserId" method="get">
+<form action="${pageContext.request.contextPath}/utility/findByUserId" method="get">
 
     <label>
         Поиск по ID пользователя: <input type="text" name="userId">
@@ -91,7 +91,7 @@
 
 </form>
 
-<form action="${pageContext.request.contextPath}/mvc/utility/findByDate" method="GET">
+<form action="${pageContext.request.contextPath}/utility/findByDate" method="GET">
     <label>
       Поиск показаний по дате:  <input type="date" name="findByDate">
     </label>
@@ -105,7 +105,7 @@
 </p>
 
 
-<form action="${pageContext.request.contextPath}/mvc/utility/findByPeriod" method="GET">
+<form action="${pageContext.request.contextPath}/utility/findByPeriod" method="GET">
     <label>
        Начало периода: <input type="date" name="dateFrom">
                          -
@@ -115,7 +115,7 @@
 
 </form>
 
-<button onclick="document.location='${pageContext.request.contextPath}/mvc/utility/ALL'">Показания счетчиков всех пользователей </button>
+<button onclick="document.location='${pageContext.request.contextPath}/utility/ALL'">Показания счетчиков всех пользователей </button>
 
 
 

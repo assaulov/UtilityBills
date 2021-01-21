@@ -5,8 +5,10 @@ import edu.project.utility_bills.service.UtilityService;
 import edu.project.utility_bills.view.UtilityRequest;
 import edu.project.utility_bills.view.UtilityResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
@@ -15,9 +17,8 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/utility")
+@RequestMapping("utility")
 public class UtilityListController {
-
 
 
 

@@ -1,11 +1,6 @@
 package edu.project.utility_bills.domain;
 
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import edu.project.utility_bills.view.LocalDateStringConverter;
-import edu.project.utility_bills.view.StringLocalDateConverter;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -24,8 +19,7 @@ public class User {
     @Column (name = "middle_name")
     private String middleName;
     @Column (name = "date_of_birth")
-    @JsonSerialize(converter = LocalDateStringConverter.class)
-    @JsonDeserialize(converter = StringLocalDateConverter.class)
+
     private LocalDate dateOfBirth;
     @Column (name = "pseudo_name")
     private String pseudoName;

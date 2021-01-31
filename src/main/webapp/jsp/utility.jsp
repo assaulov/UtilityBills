@@ -10,6 +10,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 
@@ -17,62 +18,10 @@
       xmlns:th="https://www.thymeleaf.org"
       lang="ru">
 <head>
-    <meta name="viewport" ontent="width=device-width, initial-scale=1">
+
     <title>Title</title>
-    <style>
-        table {
-            font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-            font-size: 14px;
-            border-collapse: collapse;
-            text-align: center;
-            margin: auto;
-        }
-        th, td:first-child {
-            background: #AFCDE7;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-        }
-        th, td {
-            border-style: solid;
-            border-width: 0 1px 1px 0;
-            border-color: white;
-            text-align: center;
-        }
-        td {
-            background: #D8E6F3;
-
-        }
-        th:first-child, td:first-child {
-            text-align: center;
-        }
-
-        input[type=text] {
-            width: 10%;
-            padding: 6px 10px;
-            margin: 8px 0;
-            box-sizing: border-box ;
-            border: 3px solid #ccc;
-            -webkit-transition: 0.5s;
-            transition: 0.5s;
-            outline: none;
-        }
-        input[type=date] {
-            width: 10%;
-            padding: 6px 10px;
-            margin: 8px 0;
-            box-sizing: border-box ;
-            border: 3px solid #ccc;
-            -webkit-transition: 0.5s;
-            transition: 0.5s;
-            outline: none;
-        }
-
-
-        input[type=text]:focus {
-            border: 3px solid #555;
-        }
-    </style>
+    <link href="<c:url value="/css/style.css"/>" type="text/css" rel="stylesheet"/>
+    <link href="<c:url value="/css/forForm.css"/>" type="text/css" rel="stylesheet"/>
 </head>
 <body>
 <h3>List of Utilities ${today}</h3>
@@ -82,14 +31,14 @@
 </span>
 </p>
 
-<form action="${pageContext.request.contextPath}/utility/findByUserId" method="get">
+<form:form action="${pageContext.request.contextPath}/utility/findByUserId" method="get">
 
     <label>
         Поиск по ID пользователя: <input type="text" name="userId">
     </label>
     <input type="submit" value="Отправить запрос">
 
-</form>
+</form:form>
 
 <form action="${pageContext.request.contextPath}/utility/findByDate" method="GET">
     <label>
@@ -115,16 +64,65 @@
 
 </form>
 
+<%--
 <button onclick="document.location='${pageContext.request.contextPath}/utility/ALL'">Показания счетчиков всех пользователей </button>
+--%>
+
+<form action="${pageContext.request.contextPath}/utility/ALL" method="GET">
+    <input type="submit" value="Показания счетчиков всех пользователей">
+</form>
+
+<button onclick='openForm()'> Показать форму</button>
+
+<div class="popup">
+    <div class="popup__container">
+        <div class="popup__wrapper">
+            <div id="blablabla">
+
+                <form role="form" action="${pageContext.request.contextPath}/utility/save" autocomplete="off" method="POST">
+                    <label>Id пользователя:</label>
+                    <input type="text" name="user">
+                    <br>
+                    <label>Дата списания счетчиков:</label>
+                    <input type="date" name="dateOfWriteUtilityMeter">
+                    <br>
+                    <label>Холодная вода:</label>
+                    <input type="text" name="coldWater">
+                    <br>
+                    <label>Горячая вода:</label>
+                    <input type="text" name="hotWater">
+                    <br>
+                    <label>Электричество:</label>
+                    <input type="text" name="electricity">
+                    <br>
+                    <label>Газ:</label>
+                    <input type="text" name="gas">
+                    <br>
+                    <label>Общедомовые услуги:</label>
+                    <input type="text" name="houseUtility">
+                    <br>
+                    <label>Капитальный ремонт:</label>
+                    <input type="text" name="capitalRepair">
+                    <br>
+                    <input type="submit" value="Отправить запрос">
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
-<table border="1">
+
+<table      border="1">
     <tbody align="center">
     <caption>
         <p>
-            <span style="font-size: 40px; color: #1e048e; font-family: 'Monotype Corsiva'; ">
+            <span style="font-size: 40px; color: #1e048e; font-family: 'Monotype Corsiva',serif; ">
                 <c:out value="Таблица показаний счетчиков "/>
+            </span>
+        </p>
         <p>
             <span style="font-size: large; color: #000000; font-family: Arial; ">
 
@@ -142,6 +140,7 @@
             </span>
         </p>
     </caption>
+
     <thead>
     <tr>
         <th>Номер</th>
@@ -152,7 +151,7 @@
         <th>Газ</th>
         <th>Общедомовые</th>
         <th>Капитальный ремонт</th>
-        <th width="60">Delete</th>
+        <th width="60"></th>
     </tr>
     </thead>
     <c:forEach var="utility" items="${utilities}" varStatus="status" >
@@ -167,7 +166,7 @@
             <th>${utility.gas}</th>
             <th>${utility.houseUtility}</th>
             <th>${utility.capitalRepair}</th>
-            <td> <form action="/utility/delete/" name="date" method="post" >
+            <td> <form action="${pageContext.request.contextPath}/utility/delete/" name="date" method="post" >
                 <input type="hidden" name="date" value="${utility.dateOfWriteUtilityMeter}">
                 <input type="submit" value="Delete" class="btn btn-danger" />
             </form>
@@ -188,6 +187,32 @@
 
 
 </c:choose>
+
+<script>
+    function openForm() {
+        const button = document.querySelector('button');
+        const form = document.querySelector('#blablabla');
+        const popup = document.querySelector('.popup');
+        const html = document.querySelector('html');
+
+
+        button.addEventListener('click', () => {
+            form.classList.add('open');
+            popup.classList.add('popup_open');
+            setTimeout(function () {
+                popup.classList.remove("popup_hide");
+            }, 100);
+        });
+
+        html.addEventListener('click', function (e) {
+            if (e.target.tagName !== 'FORM' && e.target.tagName !== 'LABEL' && e.target.tagName !== 'INPUT') {
+                popup.classList.add("popup_hide");
+            }
+        });
+    }
+
+</script>
+
 
 </body>
 </html>

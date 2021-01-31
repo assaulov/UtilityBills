@@ -114,8 +114,9 @@ public class UtilityListController {
 
 
     @PostMapping("/save")
-    public void saveUtility(@RequestBody Utilities utility) {
+    public @ResponseBody ModelAndView saveUtility(Utilities utility) {
         utilityService.addUtility(utility);
+       return findAllUtilitiesOfAllUsers();
     }
 }
 

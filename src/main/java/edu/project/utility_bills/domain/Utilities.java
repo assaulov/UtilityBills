@@ -1,10 +1,7 @@
 package edu.project.utility_bills.domain;
 
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import edu.project.utility_bills.view.LocalDateStringConverter;
-import edu.project.utility_bills.view.StringLocalDateConverter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -20,8 +17,7 @@ public class Utilities {
     @Column(name = "utility_id")
     private long utilityId;
     @Column(name = "date_of_write_utility_meter")
-    @JsonSerialize(converter = LocalDateStringConverter.class)
-    @JsonDeserialize(converter = StringLocalDateConverter.class)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfWriteUtilityMeter;
     @Column(name = "hot_water")
     private double hotWater;

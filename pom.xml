@@ -24,7 +24,8 @@
         <javax.jstl.version>1.2</javax.jstl.version>
         <javax.javaee.version>7.0</javax.javaee.version>
 
-        <hibernate.version>5.4.3.Final</hibernate.version>
+        <hibernate.version>5.4.27.Final</hibernate.version>
+        <hibernateValidator.version>6.1.0.Final</hibernateValidator.version>
         <postgresql.version>42.2.5</postgresql.version>
 
     </properties>
@@ -74,6 +75,12 @@
         <artifactId>postgresql</artifactId>
         <version>${postgresql.version}</version>
     </dependency>
+    <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-validator</artifactId>
+        <version>${hibernateValidator.version}</version>
+    </dependency>
+
 
     <!--javax dependencies-->
    <dependency>

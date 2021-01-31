@@ -28,6 +28,7 @@ public class UtilityService {
 
     @Transactional
     public void  addUtility(Utilities utility) {
+
         utilityRepository.addUtility(
                 utility.getUser(),
                 utility.getDateOfWriteUtilityMeter(),

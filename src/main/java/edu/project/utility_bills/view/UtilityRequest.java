@@ -1,7 +1,5 @@
 package edu.project.utility_bills.view;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -10,9 +8,8 @@ import java.time.LocalDate;
 @Component
 public class UtilityRequest {
 
+
     private long userId;
-    @JsonSerialize(converter = LocalDateStringConverter.class)
-    @JsonDeserialize(converter = StringLocalDateConverter.class)
     private LocalDate dateOfWriteUtilityMeter;
 
     private LocalDate dateFrom;

@@ -10,10 +10,12 @@ public class UtilityRequest {
 
 
     private long userId;
+    private long utilityId;
     private LocalDate dateOfWriteUtilityMeter;
 
     private LocalDate dateFrom;
     private LocalDate dateTo;
+
     public long getUserId() {
         return userId;
     }
@@ -46,10 +48,19 @@ public class UtilityRequest {
         this.dateTo = dateTo;
     }
 
+    public long getUtilityId() {
+        return utilityId;
+    }
+
+    public void setUtilityId(long utilityId) {
+        this.utilityId = utilityId;
+    }
+
     @Override
     public String toString() {
         return "UtilityRequest{" +
                 "userId=" + userId +
+                ", utilityId=" + utilityId +
                 ", dateOfWriteUtilityMeter=" + dateOfWriteUtilityMeter +
                 ", dateFrom=" + dateFrom +
                 ", dateTo=" + dateTo +

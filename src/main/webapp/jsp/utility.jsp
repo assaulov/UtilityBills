@@ -72,49 +72,20 @@
     <input type="submit" value="Показания счетчиков всех пользователей">
 </form>
 
-<button onclick='openForm()'> Показать форму</button>
-
-<div class="popup">
-    <div class="popup__container">
-        <div class="popup__wrapper">
-            <div id="blablabla">
-
-                <form role="form" action="${pageContext.request.contextPath}/utility/save" autocomplete="off" method="POST">
-                    <label>Id пользователя:</label>
-                    <input type="text" name="user">
-                    <br>
-                    <label>Дата списания счетчиков:</label>
-                    <input type="date" name="dateOfWriteUtilityMeter">
-                    <br>
-                    <label>Холодная вода:</label>
-                    <input type="text" name="coldWater">
-                    <br>
-                    <label>Горячая вода:</label>
-                    <input type="text" name="hotWater">
-                    <br>
-                    <label>Электричество:</label>
-                    <input type="text" name="electricity">
-                    <br>
-                    <label>Газ:</label>
-                    <input type="text" name="gas">
-                    <br>
-                    <label>Общедомовые услуги:</label>
-                    <input type="text" name="houseUtility">
-                    <br>
-                    <label>Капитальный ремонт:</label>
-                    <input type="text" name="capitalRepair">
-                    <br>
-                    <input type="submit" value="Отправить запрос">
-
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+<button id="1" onclick='openForm(this.id)'> Показать форму</button>
 
 
 
+<p><span style="font-size: large; color: #ff0000; font-family: Arial; align-content: center ">
+<c:out value="${success}"/>
+</span>
+</p>
 
+<p><span style="font-size: large; color: #ff0000; font-family: Arial; align-content: center ">
+<c:out value="${fail}"/>
+</span>
+</p>
+<br>
 <table      border="1">
     <tbody align="center">
     <caption>
@@ -151,10 +122,14 @@
         <th>Газ</th>
         <th>Общедомовые</th>
         <th>Капитальный ремонт</th>
-        <th width="60"></th>
+        <th width="60">32</th>
+        <th width="60">23</th>
     </tr>
     </thead>
+    <c:if test="${not empty utilities}">
     <c:forEach var="utility" items="${utilities}" varStatus="status" >
+
+
 
         <tr>
 
@@ -168,11 +143,15 @@
             <th>${utility.capitalRepair}</th>
             <td> <form action="${pageContext.request.contextPath}/utility/delete/" name="date" method="post" >
                 <input type="hidden" name="date" value="${utility.dateOfWriteUtilityMeter}">
-                <input type="submit" value="Delete" class="btn btn-danger" />
+                <input type="submit" value="Delete" />
             </form>
+            </td>
+            <td>
+                <input type="button" value="Update" id="${status.count+1}" onclick="updateDorm(this.id)"/>
             </td>
         </tr>
     </c:forEach>
+    </c:if>
     </tbody>
 </table>
 
@@ -187,10 +166,89 @@
 
 
 </c:choose>
+<div class="popup">
+    <div class="popup__container">
+        <div class="popup__wrapper">
+            <div id="blablabla">
+
+                <form role="form" action="${pageContext.request.contextPath}/utility/save" autocomplete="off" method="POST">
+
+                    <label>Id пользователя:</label>
+                    <input type="text" name="user" placeholder="Введите ID">
+                    <br>
+                    <label>Дата списания счетчиков:</label>
+                    <input type="date" name="dateOfWriteUtilityMeter">
+
+                    <br>
+                    <label>Холодная вода:</label>
+                    <input type="text" name="coldWater" value="0">
+                    <br>
+                    <label>Горячая вода:</label>
+                    <input type="text" name="hotWater" value="0">
+                    <br>
+                    <label>Электричество:</label>
+                    <input type="text" name="electricity" value="0">
+                    <br>
+                    <label>Газ:</label>
+                    <input type="text" name="gas" value="0">
+                    <br>
+                    <label>Общедомовые услуги:</label>
+                    <input type="text" name="houseUtility" value="0">
+                    <br>
+                    <label>Капитальный ремонт:</label>
+                    <input type="text" name="capitalRepair" value="0">
+                    <br>
+                    <input type="submit" value="Отправить запрос">
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="updade">
+    <div class="updade__container">
+        <div class="updade__wrapper">
+            <div id="updadeID">
+
+                <form action="${pageContext.request.contextPath}/utility/update" method="POST">
+                    <input type="hidden" name="_method" value="PUT"/>
+
+
+
+                    <label>Холодная вода:</label>
+                    <input type="text" name="coldWater" value="">
+                    <br>
+                    <label>Горячая вода:</label>
+                    <input type="text" name="hotWater" value="" >
+                    <br>
+                    <label>Электричество:</label>
+                    <input type="text" name="electricity" value="">
+                    <br>
+                    <label>Газ:</label>
+                    <input type="text" name="gas" value="">
+                    <br>
+                    <label>Общедомовые услуги:</label>
+                    <input type="text" name="houseUtility" value="">
+                    <br>
+                    <label>Капитальный ремонт:</label>
+                    <input type="text" name="capitalRepair" value="">
+                    <br>
+                    <c:if test="${not empty utilities}">
+                    <input type="hidden" name="utilityId" value="<c:out value="${utilities.get(0).utilityId}"/>">
+                    </c:if>
+                    <input type="submit" value="Отправить запрос">
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
-    function openForm() {
-        const button = document.querySelector('button');
+    function openForm(clicked_id) {
+        const button = document.getElementById(clicked_id);
         const form = document.querySelector('#blablabla');
         const popup = document.querySelector('.popup');
         const html = document.querySelector('html');
@@ -210,6 +268,30 @@
             }
         });
     }
+
+
+    function updateDorm(clicked_id) {
+        const button = document.getElementById(clicked_id);
+        const form = document.querySelector('#updadeID');
+        const updade = document.querySelector('.updade');
+        const html = document.querySelector('html');
+
+
+        button.addEventListener('click', () => {
+            form.classList.add('open');
+            updade.classList.add('updade_open');
+            setTimeout(function () {
+                updade.classList.remove("updade_hide");
+            }, 100);
+        });
+
+        html.addEventListener('click', function (e) {
+            if (e.target.tagName !== 'FORM' && e.target.tagName !== 'LABEL' && e.target.tagName !== 'INPUT') {
+                updade.classList.add("updade_hide");
+            }
+        });
+    }
+
 
 </script>
 

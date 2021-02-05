@@ -6,10 +6,11 @@ import edu.project.utility_bills.domain.User;
 import edu.project.utility_bills.domain.Utilities;
 import edu.project.utility_bills.view.UtilityRequest;
 import edu.project.utility_bills.view.UtilityResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
@@ -19,6 +20,8 @@ import java.util.stream.Collectors;
 @Service
 public class UtilityService {
 
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UtilityService.class);
 
     @Autowired
     UtilityRepository utilityRepository;
@@ -75,11 +78,40 @@ public class UtilityService {
         return utilitiesList.stream().map(this::getResponse).collect(Collectors.toList());
     }
 
+
+
+
     @Transactional
-    public @ResponseBody
+    public
     void deleteByDate(UtilityRequest request){
        utilityRepository.deleteByDate(request.getDateOfWriteUtilityMeter());
     }
+
+
+
+    @Transactional
+    public void updateById(UtilityRequest request,Utilities utility) {
+        LOGGER.info("Сервис обновления данных updateById");
+        Utilities myUtility = utilityRepository.findUtilityById(request.getUtilityId());
+        LOGGER.info("До"+ String.valueOf(myUtility));
+        myUtility.setColdWater(utility.getColdWater());
+        myUtility.setHotWater(utility.getHotWater());
+        myUtility.setElectricity( utility.getElectricity());
+        myUtility.setGas(utility.getGas());
+        myUtility.setHouseUtility(utility.getHouseUtility());
+        myUtility.setCapitalRepair(utility.getCapitalRepair());
+        LOGGER.info("После" + String.valueOf(myUtility));
+
+        LOGGER.info("Сервис отработал");
+
+
+    }
+
+    @Transactional
+    public void findUtilityById(UtilityRequest request) {
+        utilityRepository.findUtilityById(request.getUtilityId());
+    }
+
 
     private UtilityResponse getResponse (Utilities ut) {
 
@@ -93,6 +125,7 @@ public class UtilityService {
             ur.setGas(ut.getGas());
             ur.setHouseUtility(ut.getHouseUtility());
             ur.setCapitalRepair(ut.getCapitalRepair());
+            ur.setUtilityId(ut.getUtilityId());
 
             return ur;
     }

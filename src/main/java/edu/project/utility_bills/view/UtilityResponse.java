@@ -18,6 +18,7 @@ public class UtilityResponse  {
     private double electricity;
     private double houseUtility;
     private double capitalRepair;
+    private long utilityId;
 
     public String getDateOfWriteUtilityMeter() {
         return dateOfWriteUtilityMeter;
@@ -73,5 +74,13 @@ public class UtilityResponse  {
 
     public void setCapitalRepair(double capitalRepair) {
         this.capitalRepair = capitalRepair;
+    }
+
+    public long getUtilityId() {
+        return utilityId;
+    }
+
+    public void setUtilityId(long utilityId) {
+        this.utilityId = utilityId;
     }
 }

@@ -1,11 +1,14 @@
 package edu.project.utility_bills.domain;
 
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import edu.project.utility_bills.view.LocalDateStringConverter;
+import edu.project.utility_bills.view.StringLocalDateConverter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-
 
 
 @Table(name = "ub_utilities")
@@ -18,11 +21,13 @@ public class Utilities {
     private long utilityId;
     @Column(name = "date_of_write_utility_meter")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonSerialize(converter = LocalDateStringConverter.class)
+    @JsonDeserialize(converter = StringLocalDateConverter.class)
     private LocalDate dateOfWriteUtilityMeter;
     @Column(name = "hot_water")
     private double hotWater;
     @Column(name = "cold_water")
-    private int coldWater;
+    private double coldWater;
     @Column(name = "gas")
     private double gas;
     @Column(name = "electricity")
@@ -31,8 +36,8 @@ public class Utilities {
     private double houseUtility;
     @Column(name = "capital_repair")
     private double capitalRepair;
-    @ManyToOne (fetch=FetchType.LAZY, optional=true, cascade=CascadeType.ALL)
-    @JoinColumn(name = "user_id",insertable = false, updatable = false)
+    @ManyToOne (fetch=FetchType.EAGER, optional=true, cascade=CascadeType.ALL)
+    @JoinColumn(name = "user_id",  insertable = false, updatable = false)
     private User user;
 
     public long getUtilityId() {
@@ -59,11 +64,11 @@ public class Utilities {
         this.hotWater = hotWater;
     }
 
-    public int getColdWater() {
+    public double getColdWater() {
         return coldWater;
     }
 
-    public void setColdWater(int coldWater) {
+    public void setColdWater(double coldWater) {
         this.coldWater = coldWater;
     }
 
@@ -106,4 +111,20 @@ public class Utilities {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return "Utilities{" +
+                "utilityId=" + utilityId +
+                ", dateOfWriteUtilityMeter=" + dateOfWriteUtilityMeter +
+                ", hotWater=" + hotWater +
+                ", coldWater=" + coldWater +
+                ", gas=" + gas +
+                ", electricity=" + electricity +
+                ", houseUtility=" + houseUtility +
+                ", capitalRepair=" + capitalRepair +
+                ", userId=" + user.getUserId() +
+                '}';
+    }
 }
+

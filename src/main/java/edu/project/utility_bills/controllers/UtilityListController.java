@@ -140,26 +140,25 @@ public class UtilityListController {
 
 
     @PutMapping(value = "/update" , consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ModelAndView updateUtility(Utilities utility) {
+    public ModelAndView updateUtility(Utilities utility, ModelAndView model) {
         LOGGER.info("/update Put Mapping, метод контроддера : updateUtility( )");
         LOGGER.info("Контроллер начинает работу");
-        LOGGER.info(String.valueOf(utility.getUtilityId())+ " ID счетчиков");
 
+        model.setViewName("redirect:/utility");
 
-        ur.setUtilityId(utility.getUtilityId());
-        LOGGER.info(ur.toString() + "Запрос контроллера");
-
-        try {
+           ur.setUtilityId(utility.getUtilityId());
+            LOGGER.info(String.valueOf(utility.getUtilityId())+ " ID счетчиков");
+            LOGGER.info(ur.toString() + "Запрос контроллера");
             LOGGER.info("Запрос ушел в сервис ");
             utilityService.updateById(ur,utility);
             LOGGER.info("Вернулся ответ");
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ModelAndView("redirect:/utility");
+
+         return model;
 
     }
+
+
 }
 
 

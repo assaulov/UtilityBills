@@ -54,7 +54,7 @@
 }
 
 .popup input[type=text] {
-    width: 40%;
+    width: 50%;
     padding: 6px 10px;
     margin: 8px 0;
     box-sizing: border-box ;
@@ -64,7 +64,7 @@
     outline: none;
 }
 .popup input[type=date] {
-    width: 40%;
+    width: 50%;
     padding: 6px 10px;
     margin: 8px 0;
     box-sizing: border-box ;
@@ -111,7 +111,7 @@
     transform: translate(-50%, -50%);
     background: #fff;
     border-radius: 20px;
-    max-width: 500px;
+    max-width: 1500px;
     width: 100%;
 }
 
@@ -122,7 +122,7 @@
 
 
 .updade input[type=text] {
-    width: 40%;
+    width: 90%;
     padding: 6px 10px;
     margin: 8px 0;
     box-sizing: border-box ;
@@ -131,13 +131,4 @@
     transition: 0.5s;
     outline: none;
 }
-.updade input[type=date] {
-    width: 40%;
-    padding: 6px 10px;
-    margin: 8px 0;
-    box-sizing: border-box ;
-    border: 3px solid #ccc;
-    -webkit-transition: 0.5s;
-    transition: 0.5s;
-    outline: none;
-}
+

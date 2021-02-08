@@ -117,7 +117,7 @@ public class UtilityService {
 
             UtilityResponse ur = new UtilityResponse();
             ur.setDateOfWriteUtilityMeter(
-                    ut.getDateOfWriteUtilityMeter().
+                            ut.getDateOfWriteUtilityMeter().
                             format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
             ur.setColdWater(ut.getColdWater());
             ur.setHotWater(ut.getHotWater());

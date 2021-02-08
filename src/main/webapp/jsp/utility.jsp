@@ -122,15 +122,12 @@
         <th>Газ</th>
         <th>Общедомовые</th>
         <th>Капитальный ремонт</th>
-        <th width="60">32</th>
-        <th width="60">23</th>
+        <th width="60">DELETE</th>
+        <th width="60">UPDATE</th>
     </tr>
     </thead>
     <c:if test="${not empty utilities}">
     <c:forEach var="utility" items="${utilities}" varStatus="status" >
-
-
-
         <tr>
 
             <th>${status.count}</th>
@@ -141,13 +138,14 @@
             <th>${utility.gas}</th>
             <th>${utility.houseUtility}</th>
             <th>${utility.capitalRepair}</th>
-            <td> <form action="${pageContext.request.contextPath}/utility/delete/" name="date" method="post" >
+            <td> <form action="${pageContext.request.contextPath}/utility/delete" name="date" method="post" >
                 <input type="hidden" name="date" value="${utility.dateOfWriteUtilityMeter}">
                 <input type="submit" value="Delete" />
             </form>
             </td>
             <td>
-                <input type="button" value="Update" id="${status.count+1}" onclick="updateDorm(this.id)"/>
+
+                <input type="button" value="Update" id="${utility.utilityId}" onclick="updateDorm(this.id)"/>
             </td>
         </tr>
     </c:forEach>
@@ -174,31 +172,31 @@
                 <form role="form" action="${pageContext.request.contextPath}/utility/save" autocomplete="off" method="POST">
 
                     <label>Id пользователя:</label>
-                    <input type="text" name="user" placeholder="Введите ID">
+                    <input type="text" name="user" placeholder="Введите ID" autofocus required pattern="^[ 0-9]+$" >
                     <br>
                     <label>Дата списания счетчиков:</label>
-                    <input type="date" name="dateOfWriteUtilityMeter">
+                    <input type="date" name="dateOfWriteUtilityMeter"autofocus required>
 
                     <br>
                     <label>Холодная вода:</label>
-                    <input type="text" name="coldWater" value="0">
+                    <input type="text" name="coldWater" placeholder = "Введите 0 если нет показаний" required pattern="^[ 0-9]+$"  >
                     <br>
                     <label>Горячая вода:</label>
-                    <input type="text" name="hotWater" value="0">
+                    <input type="text" name="hotWater" required pattern="^[ 0-9]+$">
                     <br>
                     <label>Электричество:</label>
-                    <input type="text" name="electricity" value="0">
+                    <input type="text" name="electricity" required pattern="^[ 0-9]+$">
                     <br>
                     <label>Газ:</label>
-                    <input type="text" name="gas" value="0">
+                    <input type="text" name="gas" required pattern="^[ 0-9]+$">
                     <br>
                     <label>Общедомовые услуги:</label>
-                    <input type="text" name="houseUtility" value="0">
+                    <input type="text" name="houseUtility" required pattern="^[ 0-9]+$">
                     <br>
                     <label>Капитальный ремонт:</label>
-                    <input type="text" name="capitalRepair" value="0">
+                    <input type="text" name="capitalRepair" required pattern="^[ 0-9]+$">
                     <br>
-                    <input type="submit" value="Отправить запрос">
+                    <input type="submit" value="Отправить запрос" >
 
                 </form>
             </div>
@@ -206,45 +204,44 @@
     </div>
 </div>
 
-
+<%--Это костыль по отображению данных для изменения, но как сделать по другому без использования другой страницы jsp и javascript с json запросом я не знаю. --%>
+<c:if test="${not empty utilities}">
 <div class="updade">
     <div class="updade__container">
         <div class="updade__wrapper">
             <div id="updadeID">
-
+                <c:forEach var="utility" items="${utilities}" varStatus="status" >
                 <form action="${pageContext.request.contextPath}/utility/update" method="POST">
                     <input type="hidden" name="_method" value="PUT"/>
 
+                   <table>
+                    <tr>
+                    <th>${status.count}</th>
+                    <th>${utility.dateOfWriteUtilityMeter}</th>
+                    <th> <input type="text" name="coldWater" required pattern="^[ 0-9]+$" value="${utility.coldWater}"></th>
+                    <th><input type="text" name="hotWater" required pattern="^[ 0-9]+$" value="${utility.hotWater}"></th>
+                    <th><input type="text" name="electricity" required pattern="^[ 0-9]+$"value="${utility.electricity}"></th>
+                    <th><input type="text" name="gas" required pattern="^[ 0-9]+$" value="${utility.gas}"></th>
+                    <th><input type="text" name="houseUtility" required pattern="^[ 0-9]+$" value="${utility.houseUtility}"></th>
+                    <th><input type="text" name="capitalRepair" required pattern="^[ 0-9]+$" value="${utility.capitalRepair}"></th>
 
 
-                    <label>Холодная вода:</label>
-                    <input type="text" name="coldWater" value="">
-                    <br>
-                    <label>Горячая вода:</label>
-                    <input type="text" name="hotWater" value="" >
-                    <br>
-                    <label>Электричество:</label>
-                    <input type="text" name="electricity" value="">
-                    <br>
-                    <label>Газ:</label>
-                    <input type="text" name="gas" value="">
-                    <br>
-                    <label>Общедомовые услуги:</label>
-                    <input type="text" name="houseUtility" value="">
-                    <br>
-                    <label>Капитальный ремонт:</label>
-                    <input type="text" name="capitalRepair" value="">
-                    <br>
-                    <c:if test="${not empty utilities}">
-                    <input type="hidden" name="utilityId" value="<c:out value="${utilities.get(0).utilityId}"/>">
-                    </c:if>
+                    <input type="hidden" name="utilityId" value="<c:out value="${utility.utilityId}"/>">
+
+
+                    </tr>
+                    </table>
                     <input type="submit" value="Отправить запрос">
 
                 </form>
+
+             </c:forEach>
             </div>
         </div>
     </div>
 </div>
+
+</c:if>
 
 <script>
     function openForm(clicked_id) {

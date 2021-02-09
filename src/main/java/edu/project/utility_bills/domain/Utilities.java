@@ -36,8 +36,8 @@ public class Utilities {
     private double houseUtility;
     @Column(name = "capital_repair")
     private double capitalRepair;
-    @ManyToOne (fetch=FetchType.EAGER, optional=true, cascade=CascadeType.ALL)
-    @JoinColumn(name = "user_id",  insertable = false, updatable = false)
+    @ManyToOne (fetch=FetchType.EAGER, optional=true)
+    @JoinColumn(name = "id",  insertable = false, updatable = false)
     private User user;
 
     public long getUtilityId() {
@@ -123,7 +123,8 @@ public class Utilities {
                 ", electricity=" + electricity +
                 ", houseUtility=" + houseUtility +
                 ", capitalRepair=" + capitalRepair +
-                ", userId=" + user.getUserId() +
+                ", userName=" + user.getUsername() +
+                ", userId=" + user.getId() +
                 '}';
     }
 }

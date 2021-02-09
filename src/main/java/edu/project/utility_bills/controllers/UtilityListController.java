@@ -1,6 +1,7 @@
 package edu.project.utility_bills.controllers;
 
 
+import edu.project.utility_bills.domain.User;
 import edu.project.utility_bills.domain.Utilities;
 import edu.project.utility_bills.service.UtilityService;
 import edu.project.utility_bills.view.UtilityRequest;
@@ -8,9 +9,9 @@ import edu.project.utility_bills.view.UtilityResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -31,19 +32,11 @@ public class UtilityListController {
 
 
 
-    @GetMapping
-    public ModelAndView showPage() {
-     ModelAndView model = new ModelAndView();
-        model.setViewName("utility");
-        LOGGER.info("Начальное отображение страницы");
-       return model;
-    }
-
-
-    @GetMapping("/ALL")
-    public ModelAndView findAllUtilitiesOfAllUsers( ) {
-        LOGGER.info("/ALL Get mapping, метод контроддера : findAllUtilitiesOfAllUsers( )");
-        List<UtilityResponse> utilitiesList = utilityService.findAll();
+    @GetMapping("/{name}")
+    public ModelAndView findAll(@PathVariable String name) {
+        LOGGER.info("/ALL Get mapping, метод контроддера : showPage( )");
+        ur.setUsername(name);
+        List<UtilityResponse> utilitiesList = utilityService.findAll(ur);
         ModelAndView model = new ModelAndView();
         model.setViewName("utility");
         model.addObject("utilities", utilitiesList);
@@ -51,28 +44,9 @@ public class UtilityListController {
         return model;
     }
 
-    @GetMapping("/findByUserId")
-    public ModelAndView findUtilitiesByUserId(ModelAndView model,  @RequestParam("userId") String userId) throws NullPointerException{
-        LOGGER.info("/findByUserId Get mapping, метод контроддера : findUtilitiesByUserId( )");
-        model.setViewName("utility");
-        try {
-            ur.setUserId(Long.parseLong(userId));
-            List<UtilityResponse> responses = utilityService.findUtilitiesByUserId(ur);
-            model.addObject("utilities", responses);
-            model.addObject("userId", Long.parseLong(userId));
-        } catch (NumberFormatException e) {
-            String userror = "Введите id пользователя!";
-            model.addObject("userror", userror);
-        }
-        model.addObject("today", LocalDate.now().format(DateTimeFormatter.ISO_DATE));
-        return model;
 
-    }
-
-
-
-    @GetMapping("/findByDate")
-    public ModelAndView findUtilitiesByDate(ModelAndView model, @RequestParam("findByDate") String date) {
+    @GetMapping("{name}/findByDate")
+    public ModelAndView findUtilitiesByDate(ModelAndView model, @RequestParam("findByDate") String date, @PathVariable String name) {
         LOGGER.info("/findByDate Get mapping, метод контроддера : findUtilitiesByDate( )");
         model.setViewName("utility");
 
@@ -88,10 +62,10 @@ public class UtilityListController {
         return model;
     }
 
-    @GetMapping("/findByPeriod")
+    @GetMapping("{name}/findByPeriod")
     public  ModelAndView findUtilitiesByPeriod(ModelAndView model,
-                                         @RequestParam("dateFrom") String dateFrom,
-                                         @RequestParam("dateTo") String dateTo) {
+                                               @RequestParam("dateFrom") String dateFrom,
+                                               @RequestParam("dateTo") String dateTo, @PathVariable String name) {
         LOGGER.info("/findByPeriod Get mapping, метод контроддера : findUtilitiesByPeriod( )");
         model.setViewName("utility");
 
@@ -111,40 +85,42 @@ public class UtilityListController {
 
     }
 
-    @PostMapping("/delete")
-    public @ResponseBody ModelAndView deleteByDate(@RequestParam("date") LocalDate date) {
-        LOGGER.info("/delete Post Mapping, метод контроддера : deleteByDate( )");
-        ur.setDateOfWriteUtilityMeter(date);
-        utilityService.deleteByDate(ur);
-    return findAllUtilitiesOfAllUsers();
+    @PostMapping("{name}/delete")
+    public @ResponseBody ModelAndView deleteById(@RequestParam("utilityId") String utilityId, @PathVariable String name) {
+        LOGGER.info("/delete Post Mapping, метод контроддера : deleteById( )");
+        ur.setUtilityId(Long.parseLong(utilityId));
+        utilityService.deleteById(ur);
+    return findAll(name);
     }
 
 
-    @PostMapping("/save")
-    public @ResponseBody ModelAndView saveUtility(ModelAndView model, Utilities utility) {
+    @PostMapping("{name}/save")
+    public @ResponseBody ModelAndView saveUtility(Utilities utility, @PathVariable String name,  User user) {
         LOGGER.info("/save Post Mapping, метод контроддера : saveUtility( )");
 
-        model.addObject("today", LocalDate.now().format(DateTimeFormatter.ISO_DATE));
-        model.addObject("utilities", "");
-        model.setViewName("utility");
-              try{
-                        utilityService.addUtility(utility);
-                        model.addObject("success", "Данные успешно внесены");
-                                       return model;
+        System.out.println(name);
+        user.setUsername(name);
+        utility.setUser(user);
+              try{        LOGGER.info(" try  utilityService.save(utility)");
+
+
+                  utilityService.saveUtilities(utility);
+                  return findAll(name);
                 } catch (Exception e) {
-            model.addObject("fail", "Ошибка добавления данных. Проверь ввод.");
-            return model;
+
+                  LOGGER.info(e.toString());
+            return findAll(name);
         }
     }
 
 
 
-    @PutMapping(value = "/update" , consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ModelAndView updateUtility(Utilities utility, ModelAndView model) {
+    @PutMapping(value = "{name}/update" )
+    public ModelAndView updateUtility(Utilities utility, @PathVariable String name) {
         LOGGER.info("/update Put Mapping, метод контроддера : updateUtility( )");
         LOGGER.info("Контроллер начинает работу");
 
-        model.setViewName("redirect:/utility");
+
 
            ur.setUtilityId(utility.getUtilityId());
             LOGGER.info(String.valueOf(utility.getUtilityId())+ " ID счетчиков");
@@ -154,7 +130,7 @@ public class UtilityListController {
             LOGGER.info("Вернулся ответ");
 
 
-         return model;
+         return new ModelAndView(new RedirectView(""));
 
     }
 

@@ -29,7 +29,8 @@ public class UtilityService {
     @Autowired
     UserRepository userRepository;
 
-    @Transactional
+
+    /*@Transactional
     public void  addUtility(Utilities utility) {
 
         utilityRepository.addUtility(
@@ -43,30 +44,47 @@ public class UtilityService {
                 utility.getCapitalRepair()
         );
 
+    }*/
+
+
+    public void saveUtilities(Utilities utility) {
+       User user = userRepository.findByUsername(utility.getUser().getUsername());
+        LOGGER.info(String.valueOf(user.getId())+" " + user.getUsername());
+        utility.setUser(user);
+        LOGGER.info(utility.toString());
+        utilityRepository.addUtility(utility.getUser(),
+                utility.getDateOfWriteUtilityMeter(),
+                utility.getColdWater(),
+                utility.getHotWater(),
+                utility.getElectricity(),
+                utility.getGas(),
+                utility.getHouseUtility(),
+                utility.getCapitalRepair());
+        LOGGER.info("Сервис saveUtilities");
     }
 
-
     @Transactional
-    public List<UtilityResponse> findUtilitiesByUserId(UtilityRequest request) {
-       List<User> users = userRepository.findUserById(
-                        request.getUserId());
-       if(users.isEmpty()) {
-                    return Collections.EMPTY_LIST;
-                }
+    public List<UtilityResponse> findAll(UtilityRequest request) {
+        return getUtilityResponses(request);
+    }
+
+    private List<UtilityResponse> getUtilityResponses(UtilityRequest request) {
+        List<User> users = Collections.singletonList(userRepository.findByUsername(request.getUsername()));
+
+        if(users.isEmpty()) {
+            return Collections.EMPTY_LIST;
+        }
         List<Utilities> utilities =users.get(0).getUtilitiesList();
         return utilities.stream().map(this::getResponse).collect(Collectors.toList());
-    }
-
-    @Transactional
-    public List<UtilityResponse> findAll() {
-        List<Utilities> utilitiesList = utilityRepository.findAll();
-        return utilitiesList.stream().map(this::getResponse).collect(Collectors.toList());
     }
 
 
     @Transactional
     public List<UtilityResponse> findAllUtilitiesByDate(UtilityRequest request) {
-
+        List<User> users = Collections.singletonList(userRepository.findByUsername(request.getUsername()));
+        if(users.isEmpty()) {
+            return Collections.EMPTY_LIST;
+        }
         List<Utilities> utilitiesList = utilityRepository.findUtilitiesByDate(request.getDateOfWriteUtilityMeter());
 
         return utilitiesList.stream().map(this::getResponse).collect(Collectors.toList());
@@ -74,7 +92,9 @@ public class UtilityService {
 
     @Transactional
     public List<UtilityResponse> findUtilitiesByPeriod(UtilityRequest request) {
-        List<Utilities> utilitiesList = utilityRepository.findUtilitiesByPeriod(request.getDateFrom(), request.getDateTo());
+        User user = userRepository.findByUsername(request.getUsername());
+
+        List<Utilities> utilitiesList = utilityRepository.findUtilitiesByPeriod(request.getDateFrom(), request.getDateTo(), user);
         return utilitiesList.stream().map(this::getResponse).collect(Collectors.toList());
     }
 
@@ -83,8 +103,8 @@ public class UtilityService {
 
     @Transactional
     public
-    void deleteByDate(UtilityRequest request){
-       utilityRepository.deleteByDate(request.getDateOfWriteUtilityMeter());
+    void deleteById(UtilityRequest request){
+       utilityRepository.deleteById(request.getUtilityId());
     }
 
 
@@ -93,14 +113,15 @@ public class UtilityService {
     public void updateById(UtilityRequest request,Utilities utility) {
         LOGGER.info("Сервис обновления данных updateById");
         Utilities myUtility = utilityRepository.findUtilityById(request.getUtilityId());
-        LOGGER.info("До"+ String.valueOf(myUtility));
+
+        LOGGER.info("До: "+ String.valueOf(myUtility));
         myUtility.setColdWater(utility.getColdWater());
         myUtility.setHotWater(utility.getHotWater());
         myUtility.setElectricity( utility.getElectricity());
         myUtility.setGas(utility.getGas());
         myUtility.setHouseUtility(utility.getHouseUtility());
         myUtility.setCapitalRepair(utility.getCapitalRepair());
-        LOGGER.info("После" + String.valueOf(myUtility));
+        LOGGER.info("После: " + String.valueOf(myUtility));
 
         LOGGER.info("Сервис отработал");
 

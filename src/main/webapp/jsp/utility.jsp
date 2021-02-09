@@ -24,23 +24,11 @@
     <link href="<c:url value="/css/forForm.css"/>" type="text/css" rel="stylesheet"/>
 </head>
 <body>
-<h3>List of Utilities ${today}</h3>
+<h3>${pageContext.request.userPrincipal.name}  ${today}</h3>
+<a href="${pageContext.request.contextPath}/">Главная</a>
 
-<p><span style="font-size: large; color: #79ff00; font-family: Arial; ">
-<c:out value="${userror}"/>
-</span>
-</p>
 
-<form:form action="${pageContext.request.contextPath}/utility/findByUserId" method="get">
-
-    <label>
-        Поиск по ID пользователя: <input type="text" name="userId">
-    </label>
-    <input type="submit" value="Отправить запрос">
-
-</form:form>
-
-<form action="${pageContext.request.contextPath}/utility/findByDate" method="GET">
+<form action="${pageContext.request.contextPath}/utility/${pageContext.request.userPrincipal.name}/findByDate" method="GET">
     <label>
       Поиск показаний по дате:  <input type="date" name="findByDate">
     </label>
@@ -54,12 +42,13 @@
 </p>
 
 
-<form action="${pageContext.request.contextPath}/utility/findByPeriod" method="GET">
+<form action="${pageContext.request.contextPath}/utility/${pageContext.request.userPrincipal.name}/findByPeriod" method="GET">
     <label>
        Начало периода: <input type="date" name="dateFrom">
                          -
         <input type="date" name="dateTo"> :Конец периода
     </label>
+    <input type="hidden" name="${pageContext.request.userPrincipal.name}" >
     <input type="submit" value="Отправить запрос">
 
 </form>
@@ -68,9 +57,7 @@
 <button onclick="document.location='${pageContext.request.contextPath}/utility/ALL'">Показания счетчиков всех пользователей </button>
 --%>
 
-<form action="${pageContext.request.contextPath}/utility/ALL" method="GET">
-    <input type="submit" value="Показания счетчиков всех пользователей">
-</form>
+
 
 <button id="1" onclick='openForm(this.id)'> Показать форму</button>
 
@@ -97,8 +84,8 @@
         <p>
             <span style="font-size: large; color: #000000; font-family: Arial; ">
 
-                <c:if test="${not empty userId}">
-                     <c:out value="Показания счетчиков для пользователя с ID: ${userId}"/>
+                <c:if test="${not empty id}">
+                     <c:out value="Показания счетчиков для пользователя с ID: ${id}"/>
                 </c:if>
                 <c:if test="${not empty date}">
                     <c:out value="Показания счетчиков по дате: ${date}"/>
@@ -138,14 +125,14 @@
             <th>${utility.gas}</th>
             <th>${utility.houseUtility}</th>
             <th>${utility.capitalRepair}</th>
-            <td> <form action="${pageContext.request.contextPath}/utility/delete" name="date" method="post" >
-                <input type="hidden" name="date" value="${utility.dateOfWriteUtilityMeter}">
+            <td> <form action="${pageContext.request.contextPath}/utility/${pageContext.request.userPrincipal.name}/delete" name="utilityId" method="post" >
+                <input type="hidden" name="utilityId" value="${utility.utilityId}">
                 <input type="submit" value="Delete" />
             </form>
             </td>
             <td>
 
-                <input type="button" value="Update" id="${utility.utilityId}" onclick="updateDorm(this.id)"/>
+                <input type="button" value="Update" id="${utility.utilityId+1}" onclick="updateDorm(this.id)"/>
             </td>
         </tr>
     </c:forEach>
@@ -169,13 +156,13 @@
         <div class="popup__wrapper">
             <div id="blablabla">
 
-                <form role="form" action="${pageContext.request.contextPath}/utility/save" autocomplete="off" method="POST">
+                <form role="form" action="${pageContext.request.contextPath}/utility/${pageContext.request.userPrincipal.name}/save" autocomplete="off" method="POST">
 
-                    <label>Id пользователя:</label>
-                    <input type="text" name="user" placeholder="Введите ID" autofocus required pattern="^[ 0-9]+$" >
+
+                    <input type="hidden" name= "${pageContext.request.userPrincipal.name}">
                     <br>
                     <label>Дата списания счетчиков:</label>
-                    <input type="date" name="dateOfWriteUtilityMeter"autofocus required>
+                    <input type="date" name="dateOfWriteUtilityMeter" autofocus required>
 
                     <br>
                     <label>Холодная вода:</label>
@@ -211,7 +198,7 @@
         <div class="updade__wrapper">
             <div id="updadeID">
                 <c:forEach var="utility" items="${utilities}" varStatus="status" >
-                <form action="${pageContext.request.contextPath}/utility/update" method="POST">
+                <form action="${pageContext.request.contextPath}/utility/${pageContext.request.userPrincipal.name}/update" method="POST">
                     <input type="hidden" name="_method" value="PUT"/>
 
                    <table>

@@ -9,19 +9,20 @@ import java.time.LocalDate;
 public class UtilityRequest {
 
 
-    private long userId;
+    private long id;
     private long utilityId;
+    private String username;
     private LocalDate dateOfWriteUtilityMeter;
 
     private LocalDate dateFrom;
     private LocalDate dateTo;
 
-    public long getUserId() {
-        return userId;
+    public long getId() {
+        return id;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public LocalDate getDateOfWriteUtilityMeter() {
@@ -56,11 +57,20 @@ public class UtilityRequest {
         this.utilityId = utilityId;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public String toString() {
         return "UtilityRequest{" +
-                "userId=" + userId +
+                "UserId=" + id +
                 ", utilityId=" + utilityId +
+                ", username='" + username + '\'' +
                 ", dateOfWriteUtilityMeter=" + dateOfWriteUtilityMeter +
                 ", dateFrom=" + dateFrom +
                 ", dateTo=" + dateTo +

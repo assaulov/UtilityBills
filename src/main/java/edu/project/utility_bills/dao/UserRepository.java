@@ -2,23 +2,16 @@ package edu.project.utility_bills.dao;
 
 
 import edu.project.utility_bills.domain.User;
-
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
 
 
-    @Modifying(clearAutomatically = true)
+    User findByUsername(String userName);
+/*    @Modifying(clearAutomatically = true)
     @Transactional
     @Query(value="INSERT INTO ub_users (last_name, first_name, middle_name, date_of_birth, pseudo_name) values (:lastName, :firstName, :middleName, :dateOfBirth, :pseudoName)",
             nativeQuery = true)
@@ -39,12 +32,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
                            @Param("firstName") String firstName,
                            @Param("middleName") String middleName,
                            @Param("dateOfBirth") LocalDate dateOfBirth,
-                           @Param("pseudoName") String pseudoName);
+                           @Param("pseudoName") String pseudoName);*/
 
 
-    @Modifying(clearAutomatically = true)
-    @Transactional
-    @Query("SELECT us FROM User us WHERE us.userId = :userId")
-    List<User> findUserById(@Param("userId") long userId);
+
+
+
 
 }

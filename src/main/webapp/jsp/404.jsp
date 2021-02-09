@@ -8,7 +8,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Free Funky 404 for Website Template | Home :: w3layouts</title>
+    <title>404</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link href='//fonts.googleapis.com/css?family=Capriola' rel='stylesheet' type='text/css'>
     <style type="text/css">
@@ -152,9 +152,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <div class="wrap">
     <div class="logo">
         <h1>404</h1>
-        <p> Sorry - File not Found!</p>
+        <p> Sorry</p>
         <div class="sub">
-            <p><button onclick="document.location='${pageContext.request.contextPath}/mvc/utility'">BACK!</button>
+            <p><button onclick="document.location='${pageContext.request.contextPath}/'">BACK!</button>
             </p>
         </div>
     </div>

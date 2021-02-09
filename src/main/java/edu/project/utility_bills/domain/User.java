@@ -19,7 +19,7 @@ public class User implements UserDetails {
     private long id;
     @Column (name = "user_name")
     private String username;
-    @OneToMany(fetch=FetchType.EAGER, mappedBy = "user")
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL,  mappedBy = "user")
     private List<Utilities> utilitiesList;
     @Size(min=2, message = "Не меньше 5 знаков")
     private String password;
@@ -35,40 +35,6 @@ public class User implements UserDetails {
     public void setId(long id) {
         this.id = id;
     }
-
-    /*public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }*/
-
-
 
     public void setUsername(String userName) {
         this.username = userName;
@@ -110,7 +76,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return getRoles();
     }
 
     @Override

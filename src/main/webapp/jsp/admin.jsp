@@ -6,6 +6,7 @@
 <head>
     <meta charset="utf-8">
     <title>Log in with your account</title>
+    <link href="<c:url value="/css/style.css"/>" type="text/css" rel="stylesheet"/>
 
 </head>
 

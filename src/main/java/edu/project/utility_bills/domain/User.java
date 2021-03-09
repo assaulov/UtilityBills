@@ -1,4 +1,7 @@
 package edu.project.utility_bills.domain;
+/*
+Сущность пользователей
+ */
 
 
 import org.springframework.security.core.GrantedAuthority;

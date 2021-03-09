@@ -1,5 +1,7 @@
 package edu.project.utility_bills.controllers;
-
+/*
+Контроллер Страницы администратора.
+ */
 import edu.project.utility_bills.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
+
 
     @GetMapping("/admin")
     public String userList(Model model) {
@@ -31,8 +34,8 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/admin/gt/{userId}")
-    public String  gtUser(@PathVariable("userId") Long userId, Model model) {
+    @GetMapping("/admin/get/{userId}")
+    public String  getUser(@PathVariable("userId") Long userId, Model model) {
         model.addAttribute("allUsers", userService.userGetList(userId));
         return "admin";
     }

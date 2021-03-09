@@ -1,5 +1,7 @@
 package edu.project.utility_bills.view;
-
+/*
+Оображение запроса
+ */
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -13,7 +15,6 @@ public class UtilityRequest {
     private long utilityId;
     private String username;
     private LocalDate dateOfWriteUtilityMeter;
-
     private LocalDate dateFrom;
     private LocalDate dateTo;
 

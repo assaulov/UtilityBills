@@ -1,4 +1,7 @@
 package edu.project.utility_bills.domain;
+/*
+Сущность показаний счетчиков.
+ */
 
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

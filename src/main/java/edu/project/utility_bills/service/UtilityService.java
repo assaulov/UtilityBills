@@ -1,5 +1,7 @@
 package edu.project.utility_bills.service;
-
+/*
+Сервис, который реализует основную бизнес-логику оперций над показаниями счетчиков.
+ */
 import edu.project.utility_bills.dao.UserRepository;
 import edu.project.utility_bills.dao.UtilityRepository;
 import edu.project.utility_bills.domain.User;
@@ -46,7 +48,7 @@ public class UtilityService {
 
     }*/
 
-
+    //Сохранения показания
     public void saveUtilities(Utilities utility) {
        User user = userRepository.findByUsername(utility.getUser().getUsername());
         LOGGER.info(String.valueOf(user.getId())+" " + user.getUsername());
@@ -63,33 +65,30 @@ public class UtilityService {
         LOGGER.info("Сервис saveUtilities");
     }
 
+    //Найти все доступные показания
     @Transactional
     public List<UtilityResponse> findAll(UtilityRequest request) {
-        return getUtilityResponses(request);
-    }
-
-    private List<UtilityResponse> getUtilityResponses(UtilityRequest request) {
         List<User> users = Collections.singletonList(userRepository.findByUsername(request.getUsername()));
 
         if(users.isEmpty()) {
             return Collections.EMPTY_LIST;
         }
+
         List<Utilities> utilities =users.get(0).getUtilitiesList();
+
         return utilities.stream().map(this::getResponse).collect(Collectors.toList());
     }
 
-
+    //Поиск показаний по дате
     @Transactional
     public List<UtilityResponse> findAllUtilitiesByDate(UtilityRequest request) {
-        List<User> users = Collections.singletonList(userRepository.findByUsername(request.getUsername()));
-        if(users.isEmpty()) {
-            return Collections.EMPTY_LIST;
-        }
+
         List<Utilities> utilitiesList = utilityRepository.findUtilitiesByDate(request.getDateOfWriteUtilityMeter());
 
         return utilitiesList.stream().map(this::getResponse).collect(Collectors.toList());
     }
 
+    //Поиск показаний за период
     @Transactional
     public List<UtilityResponse> findUtilitiesByPeriod(UtilityRequest request) {
         User user = userRepository.findByUsername(request.getUsername());
@@ -100,7 +99,7 @@ public class UtilityService {
 
 
 
-
+    //Удаление показаний по ID
     @Transactional
     public
     void deleteById(UtilityRequest request){
@@ -108,12 +107,11 @@ public class UtilityService {
     }
 
 
-
+    //бновление показаний по ID
     @Transactional
     public void updateById(UtilityRequest request,Utilities utility) {
         LOGGER.info("Сервис обновления данных updateById");
         Utilities myUtility = utilityRepository.findUtilityById(request.getUtilityId());
-
         LOGGER.info("До: "+ String.valueOf(myUtility));
         myUtility.setColdWater(utility.getColdWater());
         myUtility.setHotWater(utility.getHotWater());
@@ -122,18 +120,12 @@ public class UtilityService {
         myUtility.setHouseUtility(utility.getHouseUtility());
         myUtility.setCapitalRepair(utility.getCapitalRepair());
         LOGGER.info("После: " + String.valueOf(myUtility));
-
         LOGGER.info("Сервис отработал");
-
-
-    }
-
-    @Transactional
-    public void findUtilityById(UtilityRequest request) {
-        utilityRepository.findUtilityById(request.getUtilityId());
     }
 
 
+
+    // Параметры счетчиков для отображения
     private UtilityResponse getResponse (Utilities ut) {
 
             UtilityResponse ur = new UtilityResponse();

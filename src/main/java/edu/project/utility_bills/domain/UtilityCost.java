@@ -1,4 +1,7 @@
 package edu.project.utility_bills.domain;
+/*
+Сущность тарифов на коммунальные услуги.
+ */
 
 
 import javax.persistence.*;

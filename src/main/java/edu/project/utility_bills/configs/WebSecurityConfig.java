@@ -1,5 +1,8 @@
 package edu.project.utility_bills.configs;
+/*
+Конфигурация SpringSecurity
 
+ */
 import edu.project.utility_bills.controllers.MyAccessDeniedHandler;
 import edu.project.utility_bills.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

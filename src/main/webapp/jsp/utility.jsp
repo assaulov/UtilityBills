@@ -158,30 +158,30 @@
 
                 <form role="form" action="${pageContext.request.contextPath}/utility/${pageContext.request.userPrincipal.name}/save" autocomplete="off" method="POST">
 
-
+                    <h3>Показания счетчиков должны быть указанны либо целым числом, либо через "."</h3>
+                    <br>
                     <input type="hidden" name= "${pageContext.request.userPrincipal.name}">
                     <br>
                     <label>Дата списания счетчиков:</label>
                     <input type="date" name="dateOfWriteUtilityMeter" autofocus required>
-
                     <br>
                     <label>Холодная вода:</label>
-                    <input type="text" name="coldWater" placeholder = "Введите 0 если нет показаний" required pattern="^[ 0-9]+$"  >
+                    <input type="text" name="coldWater" placeholder = "Введите 0 если нет показаний" required pattern="^-?\d+\.?\d*$">
                     <br>
                     <label>Горячая вода:</label>
-                    <input type="text" name="hotWater" required pattern="^[ 0-9]+$">
+                    <input type="text" name="hotWater" required pattern="^-?\d+\.?\d*$">
                     <br>
                     <label>Электричество:</label>
-                    <input type="text" name="electricity" required pattern="^[ 0-9]+$">
+                    <input type="text" name="electricity" required pattern="^-?\d+\.?\d*$">
                     <br>
                     <label>Газ:</label>
-                    <input type="text" name="gas" required pattern="^[ 0-9]+$">
+                    <input type="text" name="gas" required pattern="^-?\d+\.?\d*$">
                     <br>
                     <label>Общедомовые услуги:</label>
-                    <input type="text" name="houseUtility" required pattern="^[ 0-9]+$">
+                    <input type="text" name="houseUtility" required pattern="^-?\d+\.?\d*$">
                     <br>
                     <label>Капитальный ремонт:</label>
-                    <input type="text" name="capitalRepair" required pattern="^[ 0-9]+$">
+                    <input type="text" name="capitalRepair" required pattern="^-?\d+\.?\d*$">
                     <br>
                     <input type="submit" value="Отправить запрос" >
 
@@ -197,20 +197,32 @@
     <div class="updade__container">
         <div class="updade__wrapper">
             <div id="updadeID">
+                <table width="100%">
+                <th width="0.5%" >№</th>
+                <th width="9%">Дата</th>
+                <th width="14.5%">Холодная</th>
+                <th width="15%">Горячая</th>
+                <th width="14.4%">Электричество</th>
+                <th width="15%">Газ</th>
+                <th width="15%">Общедомовые</th>
+                <th width="15.5%">Капитальный ремонт</th>
+                </table>
+
                 <c:forEach var="utility" items="${utilities}" varStatus="status" >
                 <form action="${pageContext.request.contextPath}/utility/${pageContext.request.userPrincipal.name}/update" method="POST">
                     <input type="hidden" name="_method" value="PUT"/>
 
                    <table>
+
                     <tr>
                     <th>${status.count}</th>
                     <th>${utility.dateOfWriteUtilityMeter}</th>
-                    <th> <input type="text" name="coldWater" required pattern="^[ 0-9]+$" value="${utility.coldWater}"></th>
-                    <th><input type="text" name="hotWater" required pattern="^[ 0-9]+$" value="${utility.hotWater}"></th>
-                    <th><input type="text" name="electricity" required pattern="^[ 0-9]+$"value="${utility.electricity}"></th>
-                    <th><input type="text" name="gas" required pattern="^[ 0-9]+$" value="${utility.gas}"></th>
-                    <th><input type="text" name="houseUtility" required pattern="^[ 0-9]+$" value="${utility.houseUtility}"></th>
-                    <th><input type="text" name="capitalRepair" required pattern="^[ 0-9]+$" value="${utility.capitalRepair}"></th>
+                    <th> <input type="text" name="coldWater" required pattern="^-?\d+\.?\d*$" value="${utility.coldWater}"></th>
+                    <th><input type="text" name="hotWater" required pattern="^-?\d+\.?\d*$" value="${utility.hotWater}"></th>
+                    <th><input type="text" name="electricity" required pattern="^-?\d+\.?\d*$"value="${utility.electricity}"></th>
+                    <th><input type="text" name="gas" required pattern="^-?\d+\.?\d*$" value="${utility.gas}"></th>
+                    <th><input type="text" name="houseUtility" required pattern="^-?\d+\.?\d*$" value="${utility.houseUtility}"></th>
+                    <th><input type="text" name="capitalRepair" required pattern="^-?\d+\.?\d*$" value="${utility.capitalRepair}"></th>
 
 
                     <input type="hidden" name="utilityId" value="<c:out value="${utility.utilityId}"/>">

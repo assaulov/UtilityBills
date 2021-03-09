@@ -1,5 +1,7 @@
 package edu.project.utility_bills.dao;
-
+/*
+Репозиторий  пользователей
+ */
 
 import edu.project.utility_bills.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;

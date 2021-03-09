@@ -1,6 +1,8 @@
 package edu.project.utility_bills.service;
 
-
+/*
+Сервис, который реализует основную бизнес-логику оперций над пользователями.
+ */
 import edu.project.utility_bills.dao.RoleRepository;
 import edu.project.utility_bills.dao.UserRepository;
 import edu.project.utility_bills.domain.Role;
@@ -27,6 +29,7 @@ public class UserService implements UserDetailsService {
 
     @PersistenceContext
     private EntityManager em;
+
     @Autowired
     UserRepository userRepository;
     @Autowired

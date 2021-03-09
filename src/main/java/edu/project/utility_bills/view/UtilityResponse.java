@@ -1,5 +1,7 @@
 package edu.project.utility_bills.view;
-
+/*
+Отображение ответа.
+ */
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

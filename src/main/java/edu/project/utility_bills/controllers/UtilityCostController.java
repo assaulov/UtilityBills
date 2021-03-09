@@ -1,4 +1,11 @@
 package edu.project.utility_bills.controllers;
+/*
+
+Контроллер страницы отображения, добавления, редактирования и удаления тарифов на коммунальные услуги.
+
+
+Еще не закончен.
+ */
 
 
 import edu.project.utility_bills.domain.UtilityCost;

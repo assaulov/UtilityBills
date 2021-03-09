@@ -1,5 +1,7 @@
 package edu.project.utility_bills.service;
-
+/*
+Сервис, который реализует основную бизнес-логику оперций над тарифами.
+ */
 
 import edu.project.utility_bills.dao.UtilityCostRepository;
 import edu.project.utility_bills.domain.UtilityCost;

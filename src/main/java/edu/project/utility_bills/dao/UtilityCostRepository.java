@@ -1,6 +1,7 @@
 package edu.project.utility_bills.dao;
-
-
+/*
+Репозиторий тарифов на коммунальные услуги.
+ */
 import edu.project.utility_bills.domain.UtilityCost;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

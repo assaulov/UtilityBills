@@ -1,5 +1,9 @@
 package edu.project.utility_bills.controllers;
+/*
 
+Контроллер страницы регистрации пользователей.
+
+ */
 import edu.project.utility_bills.domain.User;
 import edu.project.utility_bills.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

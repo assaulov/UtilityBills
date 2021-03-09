@@ -1,7 +1,10 @@
 package edu.project.utility_bills.domain;
 
-import org.springframework.security.core.GrantedAuthority;
+/*
+Сущность ролей пользователей
+ */
 
+import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 import java.util.Set;
 

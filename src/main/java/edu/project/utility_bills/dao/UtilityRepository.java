@@ -1,5 +1,7 @@
 package edu.project.utility_bills.dao;
-
+/*
+Репозиторий показаний счетчиков.
+ */
 
 import edu.project.utility_bills.domain.User;
 import edu.project.utility_bills.domain.Utilities;
